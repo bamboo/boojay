@@ -2,7 +2,7 @@ namespace Boojay.Compilation.Tests
 
 import System.IO
 
-import NUnit.Framework
+import NUnit.Framework from nunit.framework
 
 import Boo.Lang.Parser
 import Boo.Lang.Compiler

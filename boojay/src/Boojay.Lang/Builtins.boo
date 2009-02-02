@@ -1,7 +1,7 @@
 namespace Boojay.Lang
 
 import java.io
-import java.lang from IKVM.OpenJdk.ClassLibrary
+import java.lang from IKVM.OpenJDK.ClassLibrary
 
 def range(begin as int, end as int):
 	if begin < end:
