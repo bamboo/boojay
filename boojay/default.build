@@ -9,7 +9,7 @@
 	<property name="asm.lib.dir" value="/Users/rodrigob/java/asm-3.1/lib" />
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />
-	<property name="boo.dir" value="../../boo/build" />
+	<property name="boo.dir" value="../boo/bin" />
 	
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
 	
@@ -94,7 +94,7 @@
 			</references>
 		</booc>
 		
-		<exec program="${build.dir}/boojay.exe" workingdir="${build.dir}" useruntimeengine="true">
+		<exec program="${build.dir}/boojay.exe" workingdir="${build.dir}" managed="true">
 			<arg value="-srcdir:${path::get-full-path('src/Boojay.Lang')}" />
 			<arg value="-out:${path::get-full-path(build.dir)}" />
 			<arg value="-verbose" />
