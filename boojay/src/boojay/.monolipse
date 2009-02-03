@@ -2,8 +2,8 @@
   <outputType>exe</outputType>
   <references>
     <monolipse.core.internal.AssemblySourceReference-Remembrance>
-      <path>/boo-extensions/boojay/src/Boojay.Compilation</path>
+      <path>/boojay/src/Boojay.Compilation</path>
     </monolipse.core.internal.AssemblySourceReference-Remembrance>
   </references>
-  <outputFolder>/boo-extensions/bin</outputFolder>
+  <outputFolder>/boojay/bin</outputFolder>
 </settings>

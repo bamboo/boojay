@@ -2,6 +2,6 @@
   <language>boo</language>
   <outputType>library</outputType>
   <references/>
-  <outputFolder>/boo-extensions/bin</outputFolder>
+  <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>
 </settings>

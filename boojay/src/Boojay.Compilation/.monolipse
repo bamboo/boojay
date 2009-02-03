@@ -3,15 +3,15 @@
   <outputType>library</outputType>
   <references>
     <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/boo-extensions/boojay/lib/asm.dll</path>
+      <path>/boojay/lib/asm.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
     <monolipse.core.internal.AssemblySourceReference-Remembrance>
-      <path>/boo-extensions/boojay/src/Boojay.Macros</path>
+      <path>/boojay/src/Boojay.Macros</path>
     </monolipse.core.internal.AssemblySourceReference-Remembrance>
     <monolipse.core.internal.AssemblySourceReference-Remembrance>
-      <path>/boo-extensions/boojay/src/Boojay.Lang</path>
+      <path>/boojay/src/Boojay.Lang</path>
     </monolipse.core.internal.AssemblySourceReference-Remembrance>
   </references>
-  <outputFolder>/boo-extensions/bin</outputFolder>
+  <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>
 </settings>

@@ -3,7 +3,7 @@
   <outputType>library</outputType>
   <references>
     <monolipse.core.internal.AssemblySourceReference-Remembrance>
-      <path>/boo-extensions/boojay/src/Boojay.Compilation</path>
+      <path>/boojay/src/Boojay.Compilation</path>
     </monolipse.core.internal.AssemblySourceReference-Remembrance>
     <monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
       <name>nunit.framework</name>
@@ -12,6 +12,6 @@
       <token>96d09a1eb7f44a77</token>
     </monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
   </references>
-  <outputFolder>/boo-extensions/bin</outputFolder>
+  <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>
 </settings>
