@@ -90,7 +90,7 @@
 				<include name="*.boo" />
 			</sources>
 			<references basedir="${build.dir}">
-				<include name="*.dll" />
+				<include name="Boojay.Compilation.dll" />
 			</references>
 		</booc>
 		
