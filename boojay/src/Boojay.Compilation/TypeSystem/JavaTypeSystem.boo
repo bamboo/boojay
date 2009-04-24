@@ -2,6 +2,26 @@ namespace Boojay.Compilation.TypeSystem
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Reflection
+
+class JavaReflectionTypeSystemProvider(ReflectionTypeSystemProvider):
+	
+	public static final SharedTypeSystemProvider = JavaReflectionTypeSystemProvider()
+	
+	def constructor():
+		ReplaceMapping(System.String, JavaLangString)
+		ReplaceMapping(System.MulticastDelegate, Boojay.Lang.MulticastDelegate)
+		ReplaceMapping(Boo.Lang.List, Boojay.Lang.List)
+		ReplaceMapping(Boo.Lang.Hash, Boojay.Lang.Hash)
+		ReplaceMapping(System.NotImplementedException, Boojay.Lang.NotImplementedException)
+		
+	override def CreateEntityForRegularType(type as System.Type):
+		return BeanAwareType(self, type)
+	
+	def ReplaceMapping(existing as System.Type, new as System.Type):
+		mapping = Map(new)
+		MapTo(existing, mapping)
+		return mapping
 
 class JavaTypeSystem(TypeSystemServices):
 	
@@ -10,23 +30,9 @@ class JavaTypeSystem(TypeSystemServices):
 	
 	def constructor(context as CompilerContext):
 		super(context)
-		self.StringType = ReplaceMapping(System.String, JavaLangString)
-		self.AddPrimitiveType("string", self.StringType)
-		self.MulticastDelegateType = ReplaceMapping(System.MulticastDelegate, Boojay.Lang.MulticastDelegate)
-		self.ListType = ReplaceMapping(Boo.Lang.List, Boojay.Lang.List)
-		self.HashType = ReplaceMapping(Boo.Lang.Hash, Boojay.Lang.Hash)
-		ReplaceMapping(System.NotImplementedException, Boojay.Lang.NotImplementedException)
-		
-	override def CreateEntityForRegularType(type as System.Type):
-		return BeanAwareType(self, type)
 		
 	override ExceptionType:
 		get: return Map(java.lang.Exception)
-	
-	def ReplaceMapping(existing as System.Type, new as System.Type):
-		mapping = Map(new)
-		Cache(existing, mapping)
-		return mapping
 		
 class JavaLangString(java.lang.Character*):
 

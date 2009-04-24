@@ -1,7 +1,7 @@
 namespace Boojay.Compilation.Steps
 
 import Boo.Lang.Compiler.Steps
-import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Core
 
 class IntroduceBoojayNamespaces(IntroduceGlobalNamespaces):
 	override def Run():

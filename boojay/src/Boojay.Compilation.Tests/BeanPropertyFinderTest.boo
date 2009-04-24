@@ -2,26 +2,30 @@ namespace Boojay.Compilation.Tests
 
 import NUnit.Framework
 
+import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
 import Boojay.Compilation.TypeSystem
 
 [TestFixture]
-class BeanPropertyFinderTest:
-			
+class BeanPropertyFinderTest(TestWithCompilerContext):
+	
 	[Test] def SimpleProperty():
-		p = expectingSingleBeanPropertyWithNameAndTypeOn(ClassWithSimpleProperty, "name", string)
-		Assert.AreEqual("getName", p.GetGetMethod().Name)
-		Assert.AreEqual("setName", p.GetSetMethod().Name)
+		WithCompilerContext:
+			p = expectingSingleBeanPropertyWithNameAndTypeOn(ClassWithSimpleProperty, "name", string)
+			Assert.AreEqual("getName", p.GetGetMethod().Name)
+			Assert.AreEqual("setName", p.GetSetMethod().Name)
 		
 	[Test] def ReadOnlyProperty():
-		p = expectingSingleBeanPropertyWithNameAndTypeOn(ClassWithReadOnlyProperty, "value", int)
-		assert p.GetSetMethod() is null
-		Assert.AreEqual("getValue", p.GetGetMethod().Name)
+		WithCompilerContext:
+			p = expectingSingleBeanPropertyWithNameAndTypeOn(ClassWithReadOnlyProperty, "value", int)
+			assert p.GetSetMethod() is null
+			Assert.AreEqual("getValue", p.GetGetMethod().Name)
 		
 	[Test] def WriteOnlyProperty():
-		p = expectingSingleBeanPropertyWithNameAndTypeOn(ClassWithWriteOnlyProperty, "value", object)
-		assert p.GetGetMethod() is null
-		Assert.AreEqual("setValue", p.GetSetMethod().Name)
+		WithCompilerContext:
+			p = expectingSingleBeanPropertyWithNameAndTypeOn(ClassWithWriteOnlyProperty, "value", object)
+			assert p.GetGetMethod() is null
+			Assert.AreEqual("setValue", p.GetSetMethod().Name)
 		
 	[Test] def IndexedProperty():
 		pass
@@ -30,8 +34,9 @@ class BeanPropertyFinderTest:
 		pass
 		
 	[Test] def ConflictingSetters():
-		properties = beanPropertiesFor(ClassWithConflictingSetters)
-		assert 0 == len(properties), join(properties, ", ")
+		WithCompilerContext:
+			properties = beanPropertiesFor(ClassWithConflictingSetters)
+			assert 0 == len(properties), join(properties, ", ")
 		
 	class ClassWithSimpleProperty:
 		def getName() as string:
@@ -66,11 +71,9 @@ class BeanPropertyFinderTest:
 	def assertPropertyNameAndType(p as IProperty, expectedName as string, expectedType as System.Type):
 		Assert.AreEqual(expectedName, p.Name)
 		Assert.AreSame(bindingFor(expectedType), p.Type)
-	
-	typeSystem = JavaTypeSystem()
 		
 	def beanPropertiesFor(type as System.Type):
 		return array(BeanPropertyFinder(bindingFor(type).GetMembers()).findAll())
 		
 	def bindingFor(type as System.Type):
-		return typeSystem.Map(type)
+		return my(TypeSystemServices).Map(type)

@@ -25,7 +25,7 @@ class GenericMethodDefinitionFinder:
 		if _method isa IConstructor:
 			return _typeDefinition.GetConstructors()
 		
-		found = []
+		found = List of IEntity()
 		assert _typeDefinition.Resolve(found, _method.Name, EntityType.Method), _method.Name
 		return array(IMethodBase, found)
 		

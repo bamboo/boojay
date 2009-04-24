@@ -5,8 +5,8 @@ import Boo.Lang.Compiler.TypeSystem.Reflection
 
 class BeanAwareType(ExternalType):
 	
-	def constructor(typeSystem as TypeSystemServices, type as System.Type):
-		super(typeSystem, type)
+	def constructor(provider as IReflectionTypeSystemProvider, type as System.Type):
+		super(provider, type)
 		
 	override def CreateMembers():
 		originalMembers = super()

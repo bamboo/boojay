@@ -1,15 +1,21 @@
 namespace Boojay.Compilation
 
 import Boo.Lang.Compiler
+import Boojay.Compilation.TypeSystem
 import java from IKVM.OpenJDK.ClassLibrary
 
 def newBoojayCompiler():
 	return newBoojayCompiler(BoojayPipelines.ProduceBytecode())
 	
 def newBoojayCompiler(pipeline as CompilerPipeline):
-	compiler = BooCompiler()
-	compiler.Parameters.Pipeline = pipeline
-	compiler.Parameters.References.Add(typeof(lang.Object).Assembly)
-	compiler.Parameters.References.Add(typeof(Boojay.Macros.PrintMacro).Assembly)
-	compiler.Parameters.References.Add(typeof(Boojay.Lang.BuiltinsModule).Assembly)
-	return compiler
+	parameters = newBoojayCompilerParameters()
+	parameters.Pipeline = pipeline
+	return BooCompiler(parameters)
+	
+def newBoojayCompilerParameters():
+	parameters = CompilerParameters(JavaReflectionTypeSystemProvider.SharedTypeSystemProvider, true)
+	parameters.References.Add(typeof(lang.Object).Assembly)
+	parameters.References.Add(typeof(Boojay.Macros.PrintMacro).Assembly)
+	parameters.References.Add(typeof(Boojay.Lang.BuiltinsModule).Assembly)
+	return parameters
+
