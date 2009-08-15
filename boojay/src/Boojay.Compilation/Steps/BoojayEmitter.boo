@@ -1007,6 +1007,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	typeSystem as JavaTypeSystem:
 		get: return self.TypeSystemServices
 		
+	def javaSignature(method as IMethodBase):
+		return javaSignature(method as IMethod)
+		
 	def javaSignature(method as IMethod) as string:
 		genericTypeInfo = method.DeclaringType.ConstructedInfo
 		if genericTypeInfo is not null:
@@ -1237,6 +1240,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def arrayDescriptor(type as IType):
 		return "[" + typeDescriptor(type.GetElementType())
+		
+	def javaType(entity as IEntity):
+		return javaType(entity as IType)
 	
 	def javaType(type as IType) as string:
 		if type.IsArray: return arrayDescriptor(type)

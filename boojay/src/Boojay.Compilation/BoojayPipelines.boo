@@ -22,7 +22,7 @@ class BoojayCompilation(Boo.Lang.Compiler.Pipelines.Compile):
 		PatchBooPipeline(self)
 
 class ProduceBytecode(BoojayCompilation):
-	
+
 	def constructor():
 		Add(BoojayEmitter())
 		

@@ -26,8 +26,8 @@ static class RuntimeServices:
 		if x is null: return false
 		return x.Equals(y)
 		
-	def GetEnumerable(source) as Enumerable:
-		if source isa Enumerable:
+	def GetEnumerable(source) as System.Collections.IEnumerable:
+		if source isa Enumerable: # Enumerable is the java representation of IEnumerable
 			return source
 		if source isa Iterable:
 			return enumerableForIterable(source)

@@ -12,7 +12,7 @@ import Boojay.Compilation
 
 [TestFixture]
 partial class IntegrationTest:
-	
+
 	def runTestCase(testFile as string):
 		unit = parse(fullpathFor(testFile))	
 		main = unit.Modules[0]

@@ -32,7 +32,7 @@ def isJavaLangObject(type as IType):
 		return true
 	return type is Null.Default
 	
-def definitionFor(m as IMethodBase):
+def definitionFor(m as IMethodBase) as IMethodBase:
 	if m.DeclaringType.ConstructedInfo is null:
 		return m
 	return Boojay.Compilation.TypeSystem.GenericMethodDefinitionFinder(m).find()
