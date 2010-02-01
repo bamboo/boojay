@@ -26,7 +26,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	override def Initialize(context as CompilerContext):
 		super(context)		
 		initializeTypeMappings()
-
+		
 	def Run():
 		if len(Errors) > 0:
 			return
