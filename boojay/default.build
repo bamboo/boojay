@@ -5,8 +5,8 @@
 	Define the right values for the your system a build.properties file.
 	-->
 
-	<property name="ikvmc.exe" value="/Users/rodrigob/mono/ikvm-0.36.0.11/bin/ikvmc.exe" />
-	<property name="asm.lib.dir" value="/Users/rodrigob/java/asm-3.1/lib" />
+	<property name="ikvmc.exe" value="/Users/rodrigob/java/ikvm-0.36.0.11/bin/ikvmc.exe" />
+	<property name="asm.lib.dir" value="/Users/rodrigob/java/asm-3.2/lib" />
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />
 	<property name="boo.dir" value="../boo/bin" />
@@ -119,11 +119,11 @@
 	
 	<target name="update-asm.dll" depends="init">
 		<fileset id="asm.jars" basedir="${asm.lib.dir}">
-			<include name="asm-3.1.jar" />
-			<include name="asm-commons-3.1.jar" />
-			<include name="asm-util-3.1.jar" />
-			<include name="asm-tree-3.1.jar" />
-			<include name="asm-analysis-3.1.jar" />
+			<include name="asm-3.2.jar" />
+			<include name="asm-commons-3.2.jar" />
+			<include name="asm-util-3.2.jar" />
+			<include name="asm-tree-3.2.jar" />
+			<include name="asm-analysis-3.2.jar" />
 		</fileset>
 		
 		<boo>
