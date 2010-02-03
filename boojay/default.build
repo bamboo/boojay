@@ -73,6 +73,9 @@
 			<sources basedir="src/Boojay.Lang">
 				<include name="*.boo" />
 			</sources>
+			<references basedir="${build.dir}">
+				<include name="IKVM.OpenJDK.Core.dll" />
+			</references>
 		</booc>
 	
 		<booc target="library" output="${build.dir}/Boojay.Compilation.dll">
@@ -83,6 +86,7 @@
 				<include name="asm.dll" />
 				<include name="Boojay.Macros.dll" />
 				<include name="Boojay.Lang.dll" />
+				<include name="IKVM.OpenJDK.Core.dll" />
 			</references>
 		</booc>
 		
@@ -95,7 +99,7 @@
 			</references>
 		</booc>
 		
-		<exec program="${build.dir}/boojay.exe" workingdir="${build.dir}" managed="true">
+		<exec program="${build.dir}/boojay.exe" workingdir="${build.dir}" useruntimeengine="true">
 			<arg value="-srcdir:${path::get-full-path('src/Boojay.Lang')}" />
 			<arg value="-out:${path::get-full-path(build.dir)}" />
 			<arg value="-verbose" />
@@ -111,7 +115,7 @@
 	
 	<target name="copy-libs" depends="init">
 		<copy todir="${build.dir}" file="lib/asm.dll" />
-		<copy todir="${build.dir}" if="${string::starts-with(framework::get-target-framework(), 'net-')}">
+		<copy todir="${build.dir}">
 			<fileset basedir="${boo.dir}">
 				<include name="Boo.Lang*.dll" />
 			</fileset>
@@ -119,6 +123,7 @@
 		<copy todir="${build.dir}">
 			<fileset basedir="${ikvm.lib.dir}">
 				<include name="IKVM.OpenJDK.*.dll" />
+				<include name="IKVM.Runtime.dll" />
 			</fileset>
 		</copy>
 	</target>
