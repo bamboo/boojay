@@ -5,7 +5,8 @@
 	Define the right values for the your system a build.properties file.
 	-->
 
-	<property name="ikvmc.exe" value="/Users/rodrigob/java/ikvm-0.42.0.4/bin/ikvmc.exe" />
+	<property name="ikvm.lib.dir" value="lib/ikvm-0.42.0.4/bin" />
+	<property name="ikvmc.exe" value="${ikvm.lib.dir}/ikvmc.exe" />
 	<property name="asm.all.jar" value="/Users/rodrigob/java/asm-3.2/lib/all/asm-all-3.2.jar" />
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />
@@ -115,6 +116,11 @@
 				<include name="Boo.Lang*.dll" />
 			</fileset>
 		</copy>
+		<copy todir="${build.dir}">
+			<fileset basedir="${ikvm.lib.dir}">
+				<include name="IKVM.OpenJDK.*.dll" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="update-asm.dll" depends="init">
@@ -124,7 +130,7 @@
 	</target>
 	
 	<target name="init">
-		<mkdir dir="${build.dir}" />	
+		<mkdir dir="${build.dir}" />
 		<loadtasks assembly="${boo.dir}/Boo.NAnt.Tasks.dll" />
 	</target>
 	

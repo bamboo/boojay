@@ -6,11 +6,11 @@ import Boo.Lang.Useful.CommandLine from Boo.Lang.Useful
 class CommandLine(AbstractCommandLine):
 	
 	[getter(References)]
-	_references = []
+	_references = List[of string]()
 	
-	_sourceFiles = []
+	_sourceFiles = List[of string]()
 	
-	_srcDirs = []
+	_srcDirs = List[of string]()
 
 	def constructor(argv):
 		Parse(argv)
@@ -61,4 +61,4 @@ class CommandLine(AbstractCommandLine):
 		
 	[Argument]
 	def AddSourceFile([required] sourceFile as string):
-		self._sourceFiles.Add(sourceFile)
+		_sourceFiles.Add(sourceFile)
