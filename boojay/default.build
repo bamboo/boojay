@@ -122,7 +122,11 @@
 		</copy>
 		<copy todir="${build.dir}">
 			<fileset basedir="${ikvm.lib.dir}">
-				<include name="IKVM.OpenJDK.*.dll" />
+				<include name="IKVM.OpenJDK.Core.dll" />
+				<include name="IKVM.OpenJDK.Util.dll" />
+				<include name="IKVM.OpenJDK.Security.dll" />
+				<include name="IKVM.OpenJDK.Text.dll" />
+				<include name="IKVM.OpenJDK.XML.API.dll" />
 				<include name="IKVM.Runtime.dll" />
 			</fileset>
 		</copy>
