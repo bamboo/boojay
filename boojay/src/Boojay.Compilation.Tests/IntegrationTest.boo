@@ -39,7 +39,7 @@ partial class IntegrationTest:
 		return BooParser.ParseFile(System.IO.Path.GetFullPath(fname))
 		
 	def moduleClassFor(module as Module):
-		return module.FullName + "Module"
+		return module.FullName.Replace("-", "_") + "Module"
 		
 	def runJavaClass(className as string):
 		p = shellp("java", "-cp . ${className}")
