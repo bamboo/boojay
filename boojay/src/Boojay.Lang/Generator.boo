@@ -15,5 +15,9 @@ abstract class GeneratorEnumerator(Enumerator):
 		_current = value
 		return true
 		
+	protected def YieldDefault(state as int):
+		#FIXME: must be able to return primitives as well
+		return Yield(state, null)
+		
 	def Dispose():
 		_current = null
