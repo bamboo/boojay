@@ -22,6 +22,7 @@ class CommandLine(AbstractCommandLine):
 			
 		for srcDir in _srcDirs:
 			for fname in Directory.GetFiles(srcDir, "*.boo"):
+				continue unless fname.EndsWith("boo")
 				yield fname
 		
 	IsValid:
