@@ -1,0 +1,84 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7452B907-B013-4974-B09C-573E0790F7FE}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Boojay.Compilation</RootNamespace>
+    <AssemblyName>Boojay.Compilation</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="asm">
+      <HintPath>..\..\lib\asm.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Useful" />
+    <Reference Include="IKVM.OpenJDK.Core">
+      <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util">
+      <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API">
+      <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.OpenJDK.XML.API.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="BoojayCompiler.boo" />
+    <Compile Include="BoojayPipelines.boo" />
+    <Compile Include="Steps\BoojayEmitter.boo" />
+    <Compile Include="Steps\Globals.boo" />
+    <Compile Include="Steps\InitializeEntityNameMatcher.boo" />
+    <Compile Include="Steps\InitializeJavaTypeSystem.boo" />
+    <Compile Include="Steps\InjectCasts.boo" />
+    <Compile Include="Steps\IntroduceBoojayNamespaces.boo" />
+    <Compile Include="Steps\Macros\WatchMacro.boo" />
+    <Compile Include="Steps\NormalizeCallables.boo" />
+    <Compile Include="Steps\NormalizeIterations.boo" />
+    <Compile Include="Steps\NormalizeLiterals.boo" />
+    <Compile Include="Steps\PatchCallableConstruction.boo" />
+    <Compile Include="TypeSystem\BeanAwareType.boo" />
+    <Compile Include="TypeSystem\BeanPropertyFinder.boo" />
+    <Compile Include="TypeSystem\GenericMethodDefinitionFinder.boo" />
+    <Compile Include="TypeSystem\JarTypeSystemProvider.boo" />
+    <Compile Include="TypeSystem\JavaTypeSystem.boo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Steps" />
+    <Folder Include="Steps\Macros" />
+    <Folder Include="TypeSystem" />
+    <ProjectReference Include="..\Boojay.Lang\Boojay.Lang.booproj">
+      <Project>{777E5176-F898-4440-B038-89907F4F5D5C}</Project>
+      <Name>Boojay.Lang</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Boojay.Macros\Boojay.Macros.booproj">
+      <Project>{E284CF29-8B8F-4EE7-B866-9C9BBA191819}</Project>
+      <Name>Boojay.Macros</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
+</Project>

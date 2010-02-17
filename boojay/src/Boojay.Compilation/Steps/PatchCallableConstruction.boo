@@ -83,6 +83,3 @@ class PatchCallableConstruction(AbstractTransformerCompilerStep):
 		
 	def addToCurrentClass(member as TypeMember):
 		_currentClass.Members.Add(member)
-	
-	def uniqueName():
-		return "$" + Context.AllocIndex()

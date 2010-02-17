@@ -2,7 +2,7 @@ namespace Boojay.Compilation
 
 import Boo.Lang.Compiler
 import Boojay.Compilation.TypeSystem
-import java from IKVM.OpenJDK.Core
+import java
 
 def newBoojayCompiler():
 	return newBoojayCompiler(BoojayPipelines.ProduceBytecode())

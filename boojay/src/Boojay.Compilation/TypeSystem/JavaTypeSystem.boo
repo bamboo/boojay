@@ -37,10 +37,10 @@ class JavaTypeSystem(TypeSystemServices):
 class JavaLangString(java.lang.Character*):
 
 	self[index as int] as char:
-		get: assert false
+		get: raise System.NotImplementedException()
 	
 	Length as int:
-		get: assert false
+		get: raise System.NotImplementedException()
 		
 	def GetEnumerator():
 		pass

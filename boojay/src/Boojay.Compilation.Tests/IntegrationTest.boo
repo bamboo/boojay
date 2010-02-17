@@ -9,6 +9,7 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.IO
 import Boo.Lang.Compiler.Ast
 import Boojay.Compilation
+import Useful.Attributes
 
 [TestFixture]
 partial class IntegrationTest:
@@ -22,19 +23,19 @@ partial class IntegrationTest:
 		Assert.AreEqual(normalizeWhiteSpace(main.Documentation), normalizeWhiteSpace(output))
 		
 	def fullpathFor(testFile as string):
-		eclipseBuildPath = Path.Combine("../boojay", testFile)
-		return eclipseBuildPath if File.Exists(eclipseBuildPath)
+		return Path.Combine(testParentFolder(), testFile)
 		
-		return Path.Combine("..", testFile)
+	[once]
+	def testParentFolder():
+		folder = "."
+		while not Directory.Exists(Path.Combine(folder, "tests")):
+			folder = Path.Combine(folder, "..")
+			assert Directory.Exists(folder)
+		return folder
 		
 	def normalizeWhiteSpace(s as string):
 		return s.Trim().Replace("\r\n", "\n")
 		
-	def compile(unit as CompileUnit):
-		compiler = newBoojayCompiler()
-		result = compiler.Run(unit)
-		assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
-			
 	def parse(fname as string):
 		return BooParser.ParseFile(System.IO.Path.GetFullPath(fname))
 		

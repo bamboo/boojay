@@ -912,7 +912,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		if isInt(type): return Opcodes.T_INT
 		if isBool(type): return Opcodes.T_BOOLEAN
 		if isChar(type): return Opcodes.T_CHAR
-		assert false, type.ToString()
+		raise type.ToString()
 		
 	def isInt(type as IType):
 		return type is typeSystem().IntType

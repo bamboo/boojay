@@ -56,7 +56,7 @@ def context():
 	return CompilerContext.Current
 	
 def uniqueName():
-	return "$" + context().AllocIndex()
+	return context().GetUniqueName("$")
 	
 def uniqueReference():
 	return ReferenceExpression(uniqueName())
