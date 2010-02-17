@@ -57,7 +57,10 @@
 				<include name="*.boo" />
 			</sources>
 			<references basedir="${build.dir}">
+				<include name="Boo.Lang.Useful.dll" />
 				<include name="Boojay.Compilation.dll" />
+				<include name="IKVM.OpenJDK.Util.dll" />
+				<include name="IKVM.OpenJDK.Core.dll" />
 				<include name="${nunit.framework.dll}" />
 			</references>
 		</booc>
@@ -85,10 +88,12 @@
 				<include name="**/*.boo" />
 			</sources>
 			<references basedir="${build.dir}">
+				<include name="Boo.Lang.Useful.dll" />
 				<include name="asm.dll" />
 				<include name="Boojay.Macros.dll" />
 				<include name="Boojay.Lang.dll" />
 				<include name="IKVM.OpenJDK.Core.dll" />
+				<include name="IKVM.OpenJDK.Util.dll" />
 			</references>
 		</booc>
 		
