@@ -118,7 +118,7 @@
 		<copy todir="${build.dir}" file="lib/asm.dll" />
 		<copy todir="${build.dir}">
 			<fileset basedir="${boo.dir}">
-				<include name="Boo.Lang*.dll" />
+				<include name="Boo.*.dll" />
 				<include name="booc.*" />
 			</fileset>
 		</copy>
