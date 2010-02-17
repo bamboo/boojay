@@ -29,6 +29,9 @@
     <Reference Include="asm">
       <HintPath>..\..\lib\asm.dll</HintPath>
     </Reference>
+    <Reference Include="Boo.Lang.Compiler">
+      <HintPath>..\..\..\boo\bin\Boo.Lang.Compiler.dll</HintPath>
+    </Reference>
     <Reference Include="Boo.Lang.Useful" />
     <Reference Include="IKVM.OpenJDK.Core">
       <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.OpenJDK.Core.dll</HintPath>
