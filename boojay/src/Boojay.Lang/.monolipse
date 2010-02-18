@@ -1,7 +1,11 @@
 <settings>
   <language>boo</language>
   <outputType>library</outputType>
-  <references/>
+  <references>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Core.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+  </references>
   <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>
 </settings>

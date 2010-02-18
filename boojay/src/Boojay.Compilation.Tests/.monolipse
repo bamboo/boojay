@@ -11,6 +11,24 @@
       <culture>neutral</culture>
       <token>96d09a1eb7f44a77</token>
     </monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Core.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Util.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+      <name>Boo.Lang</name>
+      <version>2.0.9.3</version>
+      <culture>neutral</culture>
+      <token>32c39770e9a21a67</token>
+    </monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+    <monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+      <name>Boo.Lang.Useful</name>
+      <version>2.0.9.3</version>
+      <culture>neutral</culture>
+      <token>32c39770e9a21a67</token>
+    </monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
   </references>
   <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>
