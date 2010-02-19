@@ -5,7 +5,7 @@ import System.Reflection
 import System.Diagnostics
 import System.IO
 import Boo.Lang.Compiler.IO
-import Boojay.Compilation
+import Boojay.Compilation from Boojay.Compilation
 
 def loadAssembly(name as string):
 	if File.Exists(name):

@@ -5,6 +5,9 @@
     <monolipse.core.internal.LocalAssemblyReference-Remembrance>
       <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Core.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.Runtime.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
   </references>
   <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>

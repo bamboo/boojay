@@ -2,9 +2,6 @@
   <language>boo</language>
   <outputType>library</outputType>
   <references>
-    <monolipse.core.internal.AssemblySourceReference-Remembrance>
-      <path>/boojay/src/Boojay.Compilation</path>
-    </monolipse.core.internal.AssemblySourceReference-Remembrance>
     <monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
       <name>nunit.framework</name>
       <version>2.2.0.0</version>
@@ -29,6 +26,12 @@
       <culture>neutral</culture>
       <token>32c39770e9a21a67</token>
     </monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/boojay/src/Boojay.Compilation</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/lib/asm.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
   </references>
   <outputFolder>/boojay/bin</outputFolder>
   <additionalOptions></additionalOptions>
