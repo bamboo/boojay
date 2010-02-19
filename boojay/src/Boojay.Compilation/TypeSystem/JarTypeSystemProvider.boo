@@ -13,6 +13,9 @@ import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Core
 import Boo.Lang.Compiler.TypeSystem.Services
 
+import org.objectweb.asm
+import org.objectweb.asm.commons
+
 class JarTypeSystemProvider:
 	
 	def ForJar(jar as string):
@@ -84,23 +87,48 @@ class JarClass(AbstractType):
 		return my(NameResolutionService).Resolve(name, GetMembers(), typesToConsider, result)
 		
 	private def LoadMembers() as IEntity*:
-		yield JavaMethod(self)
+		reader = ClassReader(_jar.getInputStream(_entry))
+		visitor = ClassFileParser(self)
+		flags = ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES
+		reader.accept(visitor, flags)
+		return visitor.Members
+		
+class ClassFileParser(EmptyVisitor):
+	
+	_declaringType as IType
+	[getter(Members)] _members = List[of IEntity]()
+	
+	def constructor(declaringType as IType):
+		_declaringType = declaringType
+		
+	override def visit(version as int, access as int, name as string,
+			signature as string, superName as string, 
+			interfaces as (string)):
+		pass
+
+	override def visitMethod(access as int, name as string,
+					desc as string, signature as string, exceptions as (string)):
+		method = JavaMethod(_declaringType, name)
+		_members.Add(method)
+		return super(access, name, desc, signature, exceptions)
 		
 class JavaMethod(IMethod):
 	
 	_declaringType as IType
+	_name as string
 	
-	def constructor(declaringType as IType):
+	def constructor(declaringType as IType, name as string):
 		_declaringType = declaringType
+		_name = name
 	
 	EntityType:
 		get: return EntityType.Method
 		
 	Name:
-		get: return "getName"
+		get: return _name
 		
 	FullName:
-		get: return "Foo.getName"
+		get: return "${_declaringType.FullName}.${_name}"
 		
 	DeclaringType:
 		get: return _declaringType
