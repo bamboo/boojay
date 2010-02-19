@@ -6,12 +6,12 @@ import java
 
 def newBoojayCompiler():
 	return newBoojayCompiler(BoojayPipelines.ProduceBytecode())
-	
+
 def newBoojayCompiler(pipeline as CompilerPipeline):
 	parameters = newBoojayCompilerParameters()
 	parameters.Pipeline = pipeline
 	return BooCompiler(parameters)
-	
+
 def newBoojayCompilerParameters():
 	parameters = CompilerParameters(JavaReflectionTypeSystemProvider.SharedTypeSystemProvider, true)
 	parameters.References.Add(typeof(lang.Object).Assembly)
