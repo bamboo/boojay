@@ -25,6 +25,12 @@ partial class IntegrationTest:
 	def fullpathFor(testFile as string):
 		return Path.Combine(testParentFolder(), testFile)
 		
+	def binFolder():
+		return Path.GetFullPath(Path.Combine(testParentFolder(), "bin"))
+		
+	def distFolder():
+		return Path.GetFullPath(Path.Combine(testParentFolder(), "dist"))
+		
 	[once]
 	def testParentFolder():
 		folder = "."
@@ -43,7 +49,7 @@ partial class IntegrationTest:
 		return module.FullName.Replace("-", "_") + "Module"
 		
 	def runJavaClass(className as string):
-		p = shellp("java", "-cp . ${className}")
+		p = shellp("java", "-cp .:${binFolder()}:${distFolder()} ${className}")
 		p.WaitForExit()
 		if p.ExitCode != 0: raise p.StandardError.ReadToEnd()
 		return p.StandardOutput.ReadToEnd()
