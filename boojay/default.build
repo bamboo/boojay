@@ -8,14 +8,14 @@
 	<property name="ikvm.lib.dir" value="lib/ikvm-0.42.0.4/bin" />
 	<property name="ikvmc.exe" value="${ikvm.lib.dir}/ikvmc.exe" />
 	<property name="asm.all.jar" value="/Users/rodrigob/java/asm-3.2/lib/all/asm-all-3.2.jar" />
-	<property name="build.dir" value="build" />
+	<property name="build.dir" value="bin" />
 	<property name="dist.dir" value="dist" />
 	<property name="boo.dir" value="../boo/bin" />
 	
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
 	<include buildfile="nunit.inc" />
 	
-	<target name="all" depends="test, dist">
+	<target name="all" depends="test">
 	</target>
 	
 	<target name="dist" depends="boojay">
@@ -37,7 +37,7 @@
 		</zip>
 	</target>
 	
-	<target name="test" depends="Boojay.Compilation.Tests">
+	<target name="test" depends="dist, Boojay.Compilation.Tests">
 		<nunit2>
 			<formatter type="Plain" />
 			<test>
