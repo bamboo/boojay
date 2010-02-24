@@ -15,6 +15,9 @@ import Boojay.Compilation.TypeSystem
 class JarTypeSystemProviderTest(TestWithCompilerContext):
 	
 	_jar as string
+	_jarWithNamespace as string
+	_jarWithComplexNamespace as string
+	
 	_subject as JarTypeSystemProvider
 	
 	[SetUp]
@@ -29,7 +32,30 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 					return "Bar"
 		|]
 		
+		codeWithNamespace = [|
+			namespace Foo
+			
+			import java.lang
+			
+			class Bar:
+				def getName():
+					return "Baz"
+		|]
+		
+		codeWithComplexNamespace = [|
+			namespace Foo.More
+			
+			import java.lang
+			
+			class Bar:
+				def getName():
+					return "Baz"
+		|]
+		
 		_jar = GenerateTempJarWith(code)
+		_jarWithNamespace = GenerateTempJarWith(codeWithNamespace)
+		_jarWithComplexNamespace = GenerateTempJarWith(codeWithComplexNamespace)
+		
 		_subject = JarTypeSystemProvider()
 	
 	[Test]
@@ -39,8 +65,28 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 			
 			compileUnit = _subject.ForJar(_jar)
 			foo = ResolveType(compileUnit, "Foo")
-			assert "Foo" == foo.Name
+			Assert.AreEqual("Foo", foo.Name)
 			
+	[Test]
+	def ClassNameInNamespace():
+		
+		WithCompilerContext:
+			
+			compileUnit = _subject.ForJar(_jarWithNamespace)
+			bar = ResolveType(compileUnit, "Foo.Bar")
+			Assert.AreEqual("Bar", bar.Name)
+			Assert.AreEqual("Foo.Bar", bar.FullName)
+			
+	[Test]
+	def ClassNameInComplexNamespace():
+		
+		WithCompilerContext:
+			
+			compileUnit = _subject.ForJar(_jarWithComplexNamespace)
+			bar = ResolveType(compileUnit, "Foo.More.Bar")
+			Assert.AreEqual("Bar", bar.Name)
+			Assert.AreEqual("Foo.More.Bar", bar.FullName)
+
 	[Test]
 	def ClassesAreCached():
 		
@@ -72,5 +118,5 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 	def GenerateTempJarWith(code as Module):
 		jar = Path.GetTempFileName()
 		compile(CompileUnit(code))
-		GenerateJar(jar, "${type.Name}.class" for type in code.Members)
+		GenerateJar(jar, "${type.FullName.Replace('.', '/')}.class" for type in code.Members)
 		return jar
