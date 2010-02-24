@@ -26,7 +26,10 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-   <Reference Include="Boo.Lang.Compiler">
+    <Reference Include="asm">
+      <HintPath>..\..\lib\asm.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Compiler">
       <HintPath>..\..\..\boo\bin\Boo.Lang.Compiler.dll</HintPath>
     </Reference>
     <Reference Include="Boo.Lang.Useful" />
