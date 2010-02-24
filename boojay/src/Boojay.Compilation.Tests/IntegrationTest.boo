@@ -49,7 +49,9 @@ partial class IntegrationTest:
 		return module.FullName.Replace("-", "_") + "Module"
 		
 	def runJavaClass(className as string):
-		p = shellp("java", "-cp .:${binFolder()}:${distFolder()}/boojay.lang.jar ${className}")
+		classPath = (binFolder(), distFolder() + "/boojay.lang.jar")
+		
+		p = shellp("java", "-cp ${join(classPath, Path.PathSeparator)} ${className}")
 		p.WaitForExit()
 		if p.ExitCode != 0: raise p.StandardError.ReadToEnd()
 		return p.StandardOutput.ReadToEnd()
