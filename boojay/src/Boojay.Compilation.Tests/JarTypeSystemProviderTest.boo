@@ -97,12 +97,14 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 			Assert.AreSame(resolveFoo(), resolveFoo())
 			
 	[Test]
-	def Constructors():
+	def SimpleConstructor():
 		WithCompilerContext:
 			
 			compileUnit = _subject.ForJar(_jar)
 			foo = ResolveType(compileUnit, "Foo")
 			Assert.AreEqual(1, foo.GetConstructors().Length)
+			ctor = foo.GetConstructors()[0]
+			Assert.AreEqual(0, ctor.GetParameters().Length)
 			
 	[Test]
 	def ParameterlessInstanceMethod():
