@@ -5,6 +5,9 @@ import Boo.Lang.Useful.CommandLine from Boo.Lang.Useful
 
 class CommandLine(AbstractCommandLine):
 	
+	[getter(Classpaths)]
+	_classpaths = List[of string]()
+	
 	[getter(References)]
 	_references = List[of string]()
 	
@@ -53,6 +56,10 @@ class CommandLine(AbstractCommandLine):
 	def AddReference(reference as string):
 		_references.AddUnique(reference)
 		
+	[Option("Add the specified {classpath}", LongForm: "cp", MaxOccurs: int.MaxValue)]
+	def AddClasspath(classpath as string):
+		_classpaths.AddUnique(classpath)
+
 	[Option("Includes all *.boo files from {srcdir}", LongForm: "srcdir", MaxOccurs: int.MaxValue)]
 	def AddSourceDir(srcDir as string):
 		_srcDirs.AddUnique(Path.GetFullPath(srcDir))
