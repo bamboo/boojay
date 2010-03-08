@@ -12,6 +12,10 @@ def loadAssembly(name as string):
 	if File.Exists(name):
 		return Assembly.LoadFrom(name)
 	return Assembly.Load(name)
+
+def loadJar(name as string):
+	return JarTypeSystemProvider().ForJar(name) if File.Exists(name)
+	raise Exception("Can' load library ${name}")
 	
 def parseCommandLine(argv as (string)):
 	try:
@@ -29,7 +33,7 @@ print "boojay .0a"
 cmdLine = parseCommandLine(argv)
 if cmdLine is null: return
 
-compiler = newBoojayCompiler(cmdLine.Boo and BoojayPipelines.ProduceBoo() or BoojayPipelines.ProduceBytecode())
+compiler = newBoojayCompiler((BoojayPipelines.ProduceBoo() if cmdLine.Boo else BoojayPipelines.ProduceBytecode()))
 params = compiler.Parameters
 
 for fname in cmdLine.SourceFiles():
@@ -40,7 +44,7 @@ for reference in cmdLine.References:
 	params.References.Add(loadAssembly(reference))
 	
 for classpath in cmdLine.Classpaths:
-	JarTypeSystemProvider().ForJar(classpath) // what now ??
+	params.References.Add(loadJar(classpath)) // what now ??
 	
 params.OutputAssembly = cmdLine.OutputDirectory
 if cmdLine.DebugCompiler:
