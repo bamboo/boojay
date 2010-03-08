@@ -6,6 +6,7 @@ import System.Diagnostics
 import System.IO
 import Boo.Lang.Compiler.IO
 import Boojay.Compilation from Boojay.Compilation
+import Boojay.Compilation.TypeSystem from Boojay.Compilation
 
 def loadAssembly(name as string):
 	if File.Exists(name):
@@ -37,6 +38,9 @@ for fname in cmdLine.SourceFiles():
 	
 for reference in cmdLine.References:
 	params.References.Add(loadAssembly(reference))
+	
+for classpath in cmdLine.Classpaths:
+	JarTypeSystemProvider().ForJar(classpath) // what now ??
 	
 params.OutputAssembly = cmdLine.OutputDirectory
 if cmdLine.DebugCompiler:

@@ -1,4 +1,4 @@
-﻿namespace Boojay.Compilation.TypeSystem
+namespace Boojay.Compilation.TypeSystem
 
 import System
 import System.Collections.Generic

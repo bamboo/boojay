@@ -1,4 +1,4 @@
-﻿namespace Boojay.Compilation.Tests
+namespace Boojay.Compilation.Tests
 
 import System
 import System.IO
