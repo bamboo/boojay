@@ -102,9 +102,9 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 			
 			compileUnit = _subject.ForJar(_jar)
 			foo = ResolveType(compileUnit, "Foo")
-			Assert.AreEqual(1, foo.GetConstructors().Length)
+			Assert.AreEqual(1, len(foo.GetConstructors()))
 			ctor = foo.GetConstructors()[0]
-			Assert.AreEqual(0, ctor.GetParameters().Length)
+			Assert.AreEqual(0, len(ctor.GetParameters()))
 			
 	[Test]
 	def ParameterlessInstanceMethod():
