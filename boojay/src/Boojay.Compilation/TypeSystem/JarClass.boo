@@ -40,6 +40,10 @@ class JarClass(AbstractType):
 	override def GetMembers():
 		return array(LoadMembers())
 		
+	[once]
+	override def GetConstructors():
+		return [ctor for ctor in GetMembers() if ctor isa IConstructor].ToArray(IConstructor)
+			
 	def Resolve(result as ICollection[of IEntity], name as string, typesToConsider as EntityType):
 		return my(NameResolutionService).Resolve(name, GetMembers(), typesToConsider, result)
 		
