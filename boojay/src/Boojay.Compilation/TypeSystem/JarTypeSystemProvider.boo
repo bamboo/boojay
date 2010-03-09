@@ -163,9 +163,14 @@ class ClassFileParser(EmptyVisitor):
 
 	override def visitMethod(access as int, name as string,
 					desc as string, signature as string, exceptions as (string)):
-		method = JavaMethod(_declaringType, name)
-		_members.Add(method)
+		if isConstructor(name):
+			_members.Add(JavaConstructor(_declaringType, name))
+		else:
+			_members.Add(JavaMethod(_declaringType, name))
 		return super(access, name, desc, signature, exceptions)
+		
+	private def isConstructor(methodName as string):
+		return methodName.Equals("<init>")
 		
 class JavaMethod(IMethod):
 	
@@ -190,7 +195,30 @@ class JavaMethod(IMethod):
 		
 	def GetParameters():
 		return array[of IParameter](0)
+
+class JavaConstructor(IConstructor):
+	_declaringType as IType
+	_name as string
+	
+	def constructor(declaringType as IType, name as string):
+		_declaringType = declaringType
+		_name = name
+			
+	EntityType:
+		get: return EntityType.Constructor
+				
+	Name:
+		get: return _name
 		
+	FullName:
+		get: return "${_declaringType.FullName}.${_name}"
+		
+	DeclaringType:
+		get: return _declaringType
+		
+	def GetParameters():
+		return array[of IParameter](0)
+
 class StringUtil:
 	static def RemoveStart(value as string, start as string):
 		return value unless value.StartsWith(start)
