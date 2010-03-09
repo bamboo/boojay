@@ -66,7 +66,9 @@
     <Compile Include="Steps\PatchCallableConstruction.boo" />
     <Compile Include="TypeSystem\BeanAwareType.boo" />
     <Compile Include="TypeSystem\BeanPropertyFinder.boo" />
+    <Compile Include="TypeSystem\ClassFileParser.boo" />
     <Compile Include="TypeSystem\GenericMethodDefinitionFinder.boo" />
+    <Compile Include="TypeSystem\JarClass.boo" />
     <Compile Include="TypeSystem\JarTypeSystemProvider.boo" />
     <Compile Include="TypeSystem\JavaTypeSystem.boo" />
   </ItemGroup>

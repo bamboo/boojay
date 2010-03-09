@@ -1,20 +1,11 @@
 namespace Boojay.Compilation.TypeSystem
 
 import System
-import System.Collections.Generic
-import System.IO
 
 import java.util.jar
 
 import Boo.Lang.Useful.Attributes
-
-import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
-import Boo.Lang.Compiler.TypeSystem.Core
-import Boo.Lang.Compiler.TypeSystem.Services
-
-import org.objectweb.asm
-import org.objectweb.asm.commons
 
 class JarTypeSystemProvider:
 	
@@ -91,7 +82,7 @@ abstract class JarNamespaceCommon(AbstractNamespace):
 
 			relativeName = GetRelativeEntryName(entry)
 			
-			if (HasNamespace(relativeName)):
+			if HasNamespace(relativeName):
 				yield ProcessNamespace(relativeName)
 			else:
 				yield JarClass(_jar, entry)
@@ -111,66 +102,6 @@ abstract class JarNamespaceCommon(AbstractNamespace):
 	private def GetNamespace(name as string):
 		_children[name] = JarNamespace(FullName, _jar, name) unless _children.Contains(name)
 		return _children[name]
-
-class JarClass(AbstractType):
-	
-	_jar as JarFile
-	_entry as JarEntry
-	_name as string
-	_fullName as string
-	
-	def constructor(jar as JarFile, entry as JarEntry):
-		_jar = jar
-		_entry = entry
-		_name = Path.GetFileNameWithoutExtension(entry.getName())
-		_fullName = StringUtil.RemoveEnd(entry.getName().Replace("/", "."), ".class")
-		
-	override Name:
-		get: return _name
-		
-	override FullName:
-		get: return _fullName
-		
-	override EntityType:
-		get: return EntityType.Type
-		
-	[once]
-	override def GetMembers():
-		return array(LoadMembers())
-			
-	def Resolve(result as ICollection[of IEntity], name as string, typesToConsider as EntityType):
-		return my(NameResolutionService).Resolve(name, GetMembers(), typesToConsider, result)
-		
-	private def LoadMembers() as IEntity*:
-		reader = ClassReader(_jar.getInputStream(_entry))
-		visitor = ClassFileParser(self)
-		flags = ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES
-		reader.accept(visitor, flags)
-		return visitor.Members
-		
-class ClassFileParser(EmptyVisitor):
-	
-	_declaringType as IType
-	[getter(Members)] _members = List[of IEntity]()
-	
-	def constructor(declaringType as IType):
-		_declaringType = declaringType
-		
-	override def visit(version as int, access as int, name as string,
-			signature as string, superName as string, 
-			interfaces as (string)):
-		pass
-
-	override def visitMethod(access as int, name as string,
-					desc as string, signature as string, exceptions as (string)):
-		if isConstructor(name):
-			_members.Add(JavaConstructor(_declaringType, name))
-		else:
-			_members.Add(JavaMethod(_declaringType, name))
-		return super(access, name, desc, signature, exceptions)
-		
-	private def isConstructor(methodName as string):
-		return methodName.Equals("<init>")
 		
 class JavaMethod(IMethod):
 	
@@ -198,20 +129,18 @@ class JavaMethod(IMethod):
 
 class JavaConstructor(IConstructor):
 	_declaringType as IType
-	_name as string
 	
-	def constructor(declaringType as IType, name as string):
+	def constructor(declaringType as IType):
 		_declaringType = declaringType
-		_name = name
 			
 	EntityType:
 		get: return EntityType.Constructor
 				
 	Name:
-		get: return _name
+		get: return "constructor"
 		
 	FullName:
-		get: return "${_declaringType.FullName}.${_name}"
+		get: return "${_declaringType.FullName}.${Name}"
 		
 	DeclaringType:
 		get: return _declaringType
