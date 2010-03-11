@@ -10,7 +10,7 @@ import Boojay.Compilation
 partial class IntegrationTest(CommonIntegrationTest):
 
 	override def compileTest(unit as CompileUnit):
-		compile(unit)
+		boojayCompile(unit)
 		
 	override def runTest(main as Module):
 		return runJavaClass(moduleClassFor(main))

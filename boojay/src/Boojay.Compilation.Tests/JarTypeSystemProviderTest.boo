@@ -52,9 +52,9 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 					return "Baz"
 		|]
 		
-		_jar = GenerateTempJarWith(code)
-		_jarWithNamespace = GenerateTempJarWith(codeWithNamespace)
-		_jarWithComplexNamespace = GenerateTempJarWith(codeWithComplexNamespace)
+		_jar = generateTempJarWith(code)
+		_jarWithNamespace = generateTempJarWith(codeWithNamespace)
+		_jarWithComplexNamespace = generateTempJarWith(codeWithComplexNamespace)
 		
 		_subject = JarTypeSystemProvider()
 	
@@ -124,9 +124,3 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 		
 	def ResolveQualifiedName(compileUnit as ICompileUnit, typeName as string):
 		return my(NameResolutionService).ResolveQualifiedName(compileUnit.RootNamespace, typeName)
-		
-	def GenerateTempJarWith(code as Module):
-		jar = Path.GetTempFileName()
-		compile(CompileUnit(code))
-		GenerateJar(jar, "${type.FullName.Replace('.', '/')}.class" for type in code.Members)
-		return jar

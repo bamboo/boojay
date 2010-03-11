@@ -156,4 +156,4 @@ class StringUtil:
 	static def RemoveEnd(value as string, end as string):
 		return value unless value.EndsWith(end)
 		return value[:-end.Length]
-		
+

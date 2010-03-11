@@ -1,4 +1,4 @@
-﻿namespace Boojay.Compilation.TypeSystem
+namespace Boojay.Compilation.TypeSystem
 
 import System
 import Boo.Lang.Compiler.TypeSystem
@@ -27,4 +27,3 @@ class ClassFileParser(EmptyVisitor):
 		
 	private def isConstructor(methodName as string):
 		return methodName.Equals("<init>")
-		

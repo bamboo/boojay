@@ -1,4 +1,4 @@
-﻿namespace Boojay.Compilation.TypeSystem
+namespace Boojay.Compilation.TypeSystem
 
 import System
 import System.Collections.Generic
@@ -53,4 +53,4 @@ class JarClass(AbstractType):
 		flags = ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES
 		reader.accept(visitor, flags)
 		return visitor.Members
-		
+

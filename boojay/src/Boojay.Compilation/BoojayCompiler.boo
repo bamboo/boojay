@@ -18,4 +18,3 @@ def newBoojayCompilerParameters():
 	parameters.References.Add(typeof(Boojay.Macros.PrintMacro).Assembly)
 	parameters.References.Add(typeof(Boojay.Lang.BuiltinsModule).Assembly)
 	return parameters
-

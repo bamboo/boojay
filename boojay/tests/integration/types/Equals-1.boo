@@ -31,4 +31,3 @@ print e1 == e1
 print e1 == e2
 e1.operator = e2.operator
 print e1 == e2
-
