@@ -17,22 +17,21 @@ def generateTempJarWith(code as Module):
 	return jar
 
 def boojayCompile(unit as CompileUnit):
-	boojayCompile(unit, [])
+	boojayCompile(unit, List[of CompileUnit]())
 
-def boojayCompile(unit as CompileUnit, jars as CompileUnit*):
-	compile(unit, jars, newBoojayCompiler)
-
-def booCompile(unit as CompileUnit):
-	boojayCompile(unit, [])
-
-def booCompile(unit as CompileUnit, refs as CompileUnit*):
-	compile(unit, refs, newBooCompiler)
-
-def compile(unit as CompileUnit, refs as CompileUnit*, block as callable() as BooCompiler):
-	compiler = block()
+def boojayCompile(unit as CompileUnit, jars as List[of CompileUnit]):
+	compiler = newBoojayCompiler()
 	result = compiler.Run(unit)
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
-	
+
+def booCompile(unit as CompileUnit):
+	booCompile(unit, List[of CompileUnit]())
+
+def booCompile(unit as CompileUnit, refs as List[of CompileUnit]):
+	compiler = newBooCompiler()
+	result = compiler.Run(unit)
+	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
+
 def newBooCompiler():
 	compiler = BooCompiler(CompilerParameters(true))
 	compiler.Parameters.OutputType = CompilerOutputType.Auto
@@ -44,5 +43,5 @@ def runTestWithJar(test as Module, jar as Module):
 	generatedJar = generateTempJarWith(jar)
 	jarCompileUnit = JarTypeSystemProvider().ForJar(generatedJar)
 
-	boojayCompile(CompileUnit(test), [jarCompileUnit])
+	boojayCompile(CompileUnit(test), List[of CompileUnit](jarCompileUnit))
 

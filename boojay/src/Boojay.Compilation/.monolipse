@@ -18,22 +18,10 @@
       <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Util.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
     <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/boojay/build/Boo.Lang.Compiler.dll</path>
-    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
-    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/boojay/build/Boo.Lang.dll</path>
-    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
-    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/boojay/build/Boo.Lang.Parser.dll</path>
-    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
-    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
       <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Security.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
     <monolipse.core.internal.LocalAssemblyReference-Remembrance>
       <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.Runtime.dll</path>
-    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
-    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/boojay/build/Boo.Lang.Extensions.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
     <monolipse.core.internal.LocalAssemblyReference-Remembrance>
       <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.XML.API.dll</path>
@@ -42,7 +30,16 @@
       <path>/boojay/lib/ikvm-0.42.0.4/bin/IKVM.OpenJDK.Text.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
     <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/boojay/build/Boo.Lang.PatternMatching.dll</path>
+      <path>/boojay/dist/Boo.Lang.Compiler.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/dist/Boo.Lang.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/dist/Boo.Lang.Parser.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/boojay/dist/Boo.Lang.PatternMatching.dll</path>
     </monolipse.core.internal.LocalAssemblyReference-Remembrance>
   </references>
   <outputFolder>/boojay/bin</outputFolder>
