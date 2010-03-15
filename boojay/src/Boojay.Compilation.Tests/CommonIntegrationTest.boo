@@ -3,8 +3,6 @@ namespace Boojay.Compilation.Tests
 import Boo.Lang.Parser
 import Boo.Lang.Compiler.Ast
 
-import Useful.Attributes
-
 import NUnit.Framework from nunit.framework
 
 import System.IO
@@ -26,15 +24,7 @@ abstract class CommonIntegrationTest:
 		pass
 
 	def fullpathFor(testFile as string):
-		return Path.Combine(testParentFolder(), testFile)
-				
-	[once]
-	def testParentFolder():
-		folder = "."
-		while not Directory.Exists(Path.Combine(folder, "tests")):
-			folder = Path.Combine(folder, "..")
-			assert Directory.Exists(folder)
-		return folder
+		return Path.Combine(ProjectFolders.testParentFolder(), testFile)
 		
 	def normalizeWhiteSpace(s as string):
 		return s.Trim().Replace("\r\n", "\n")

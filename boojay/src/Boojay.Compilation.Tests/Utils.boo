@@ -9,6 +9,30 @@ import Boo.Lang.Compiler.Ast
 import Boojay.Compilation
 import Boojay.Compilation.TypeSystem
 
+static class JavaClassRunner:
+	def run(className as string):
+		classPath = (ProjectFolders.binFolder(), ProjectFolders.distFolder() + "/boojay.lang.jar")
+		
+		p = shellp("java", "-cp ${join(classPath, Path.PathSeparator)} ${className}")
+		p.WaitForExit()
+		if p.ExitCode != 0: raise p.StandardError.ReadToEnd()
+		return p.StandardOutput.ReadToEnd()
+
+static class ProjectFolders:
+	def binFolder():
+		return Path.GetFullPath(Path.Combine(testParentFolder(), "bin"))
+		
+	def distFolder():
+		return Path.GetFullPath(Path.Combine(testParentFolder(), "dist"))
+
+	def testParentFolder():
+		folder = "."
+		while not Directory.Exists(Path.Combine(folder, "tests")):
+			folder = Path.Combine(folder, "..")
+			assert Directory.Exists(folder)
+		return folder
+	
+
 def generateTempJarWith(code as Module):
 	jar = Path.GetTempFileName()
 	boojayCompile(CompileUnit(code))

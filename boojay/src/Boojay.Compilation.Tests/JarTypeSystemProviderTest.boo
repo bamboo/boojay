@@ -1,7 +1,6 @@
 namespace Boojay.Compilation.Tests
 
 import System
-import System.IO
 import NUnit.Framework
 
 import Boo.Lang.Compiler
