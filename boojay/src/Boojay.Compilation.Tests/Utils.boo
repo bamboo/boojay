@@ -7,6 +7,7 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
 import Boojay.Compilation
+import Boojay.Compilation.TypeSystem
 
 def generateTempJarWith(code as Module):
 	jar = Path.GetTempFileName()
@@ -16,12 +17,18 @@ def generateTempJarWith(code as Module):
 	return jar
 
 def boojayCompile(unit as CompileUnit):
-	compile(unit, newBoojayCompiler)
+	boojayCompile(unit, [])
+
+def boojayCompile(unit as CompileUnit, jars as CompileUnit*):
+	compile(unit, jars, newBoojayCompiler)
 
 def booCompile(unit as CompileUnit):
-	compile(unit, newBooCompiler)
+	boojayCompile(unit, [])
 
-def compile(unit as CompileUnit, block as callable() as BooCompiler):
+def booCompile(unit as CompileUnit, refs as CompileUnit*):
+	compile(unit, refs, newBooCompiler)
+
+def compile(unit as CompileUnit, refs as CompileUnit*, block as callable() as BooCompiler):
 	compiler = block()
 	result = compiler.Run(unit)
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
@@ -30,8 +37,12 @@ def newBooCompiler():
 	compiler = BooCompiler(CompilerParameters(true))
 	compiler.Parameters.OutputType = CompilerOutputType.Auto
 	compiler.Parameters.Pipeline = Boo.Lang.Compiler.Pipelines.CompileToMemory()
-	
+
 	return compiler
 
 def runTestWithJar(test as Module, jar as Module):
-	pass
+	generatedJar = generateTempJarWith(jar)
+	jarCompileUnit = JarTypeSystemProvider().ForJar(generatedJar)
+
+	boojayCompile(CompileUnit(test), [jarCompileUnit])
+
