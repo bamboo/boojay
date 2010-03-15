@@ -5,6 +5,7 @@ import System.IO
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
+import Boo.Lang.Compiler.TypeSystem
 
 import Boojay.Compilation
 import Boojay.Compilation.TypeSystem
@@ -41,17 +42,17 @@ def generateTempJarWith(code as Module):
 	return jar
 
 def boojayCompile(unit as CompileUnit):
-	boojayCompile(unit, List[of CompileUnit]())
+	boojayCompile(unit, List[of ICompileUnit]())
 
-def boojayCompile(unit as CompileUnit, jars as List[of CompileUnit]):
+def boojayCompile(unit as CompileUnit, jars as List[of ICompileUnit]):
 	compiler = newBoojayCompiler()
 	result = compiler.Run(unit)
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
 
 def booCompile(unit as CompileUnit):
-	booCompile(unit, List[of CompileUnit]())
+	booCompile(unit, List[of ICompileUnit]())
 
-def booCompile(unit as CompileUnit, refs as List[of CompileUnit]):
+def booCompile(unit as CompileUnit, refs as List[of ICompileUnit]):
 	compiler = newBooCompiler()
 	result = compiler.Run(unit)
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
@@ -67,5 +68,12 @@ def runTestWithJar(test as Module, jar as Module):
 	generatedJar = generateTempJarWith(jar)
 	jarCompileUnit = JarTypeSystemProvider().ForJar(generatedJar)
 
-	boojayCompile(CompileUnit(test), List[of CompileUnit](jarCompileUnit))
+	try:
+		unit = CompileUnit(test)
+		boojayCompile(unit, List[of ICompileUnit](jarCompileUnit))
+	except e:
+		print e.ToString() + unit.ToCodeString()
+
+def moduleClassFor(module as Module):
+	return module.FullName.Replace("-", "_") + "Module"
 

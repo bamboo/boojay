@@ -27,9 +27,8 @@ partial class JarIntergrationTest(CommonIntegrationTest):
 			
 	override def runTest(main as Module):
 		result = captureOutput:
-			mainModule as duck = _assembly.GetTypes()[0]
-			mainModule.Main(array(string,0))
-
+			_assembly.EntryPoint.Invoke(null, (null,))
+		
 		return result
 		
 	private def captureOutput(block as callable):

@@ -31,6 +31,3 @@ abstract class CommonIntegrationTest:
 		
 	def parse(fname as string):
 		return BooParser.ParseFile(System.IO.Path.GetFullPath(fname))
-		
-	def moduleClassFor(module as Module):
-		return module.FullName.Replace("-", "_") + "Module"
