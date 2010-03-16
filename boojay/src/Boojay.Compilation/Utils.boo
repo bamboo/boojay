@@ -5,6 +5,7 @@ import Boo.Lang.Compiler.TypeSystem
 
 def boojayCompile(unit as CompileUnit, *jars as (ICompileUnit)):
 	compiler = newBoojayCompiler()
+	compiler.Parameters.References.AddAll(jars)
 	result = compiler.Run(unit)
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
 

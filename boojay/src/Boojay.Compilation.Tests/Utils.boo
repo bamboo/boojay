@@ -13,7 +13,6 @@ import Boojay.Compilation.TypeSystem
 static class JavaClassRunner:
 	def run(className as string):
 		classPath = (ProjectFolders.binFolder(), ProjectFolders.distFolder() + "/boojay.lang.jar")
-		
 		p = shellp("java", "-cp ${join(classPath, Path.PathSeparator)} ${className}")
 		p.WaitForExit()
 		if p.ExitCode != 0: raise p.StandardError.ReadToEnd()
@@ -32,7 +31,6 @@ static class ProjectFolders:
 			folder = Path.Combine(folder, "..")
 			assert Directory.Exists(folder)
 		return folder
-	
 
 def generateTempJarWith(code as Module):
 	jar = Path.GetTempFileName()
@@ -63,6 +61,8 @@ def runTestWithJar(test as Module, jar as Module):
 	try:
 		unit = CompileUnit(test)
 		boojayCompile(unit, jarCompileUnit)
+		// FIXME: change $ to _
+		print JavaClassRunner.run(moduleClassFor(test))
 	except e:
 		print e.ToString() + unit.ToCodeString()
 
