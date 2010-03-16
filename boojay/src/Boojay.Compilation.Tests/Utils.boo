@@ -41,14 +41,6 @@ def generateTempJarWith(code as Module):
 	
 	return jar
 
-def boojayCompile(unit as CompileUnit):
-	boojayCompile(unit, List[of ICompileUnit]())
-
-def boojayCompile(unit as CompileUnit, jars as List[of ICompileUnit]):
-	compiler = newBoojayCompiler()
-	result = compiler.Run(unit)
-	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
-
 def booCompile(unit as CompileUnit):
 	booCompile(unit, List[of ICompileUnit]())
 

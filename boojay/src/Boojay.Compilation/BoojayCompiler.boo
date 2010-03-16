@@ -1,6 +1,7 @@
 namespace Boojay.Compilation
 
 import Boo.Lang.Compiler
+
 import Boojay.Compilation.TypeSystem
 import java
 
