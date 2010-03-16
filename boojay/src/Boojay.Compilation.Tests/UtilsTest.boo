@@ -19,18 +19,14 @@ class UtilsTest(TestWithCompilerContext):
 				pass
 		|]
 		
-		for type in simpleCompileTest.Members:
-			className = "${type.FullName.Replace('.', '/')}.class"
-			File.Delete(className) if File.Exists(className)
+		RemoveClasses(simpleCompileTest)
 
 		boojayCompile(CompileUnit(simpleCompileTest))
 		
 		Assert.AreEqual(1, len(simpleCompileTest.Members))
 		
-		for type in simpleCompileTest.Members:
-			className = "${type.FullName.Replace('.', '/')}.class"
-			Assert.IsTrue(File.Exists(className), "File does not exists: ${className}")
-
+		AssertClassesGeneration(simpleCompileTest)
+		
 	[Test] def CompileWithJars():
 		compileWithJarsTest = [|
 			import java.lang
@@ -51,15 +47,21 @@ class UtilsTest(TestWithCompilerContext):
 		generatedJar = generateTempJarWith(library)
 		jarCompileUnit = JarTypeSystemProvider().ForJar(generatedJar)
 
-		for type in compileWithJarsTest.Members:
-			className = "${type.FullName.Replace('.', '/')}.class"
-			File.Delete(className) if File.Exists(className)
+		RemoveClasses(compileWithJarsTest)
 
 		boojayCompile(CompileUnit(compileWithJarsTest), jarCompileUnit)
 		
 		Assert.AreEqual(1, len(compileWithJarsTest.Members))
+
+		AssertClassesGeneration(compileWithJarsTest)
 		
-		for type in compileWithJarsTest.Members:
+	private def RemoveClasses(unit as Module):
+		for type in unit.Members:
+			className = "${type.FullName.Replace('.', '/')}.class"
+			File.Delete(className) if File.Exists(className)
+		
+	private def AssertClassesGeneration(unit as Module):
+		for type in unit.Members:
 			className = "${type.FullName.Replace('.', '/')}.class"
 			Assert.IsTrue(File.Exists(className), "File does not exists: ${className}")
 		
