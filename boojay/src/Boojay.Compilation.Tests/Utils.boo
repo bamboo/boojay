@@ -44,7 +44,7 @@ def generateTempJarWith(code as Module):
 def booCompile(unit as CompileUnit):
 	booCompile(unit, List[of ICompileUnit]())
 
-def booCompile(unit as CompileUnit, refs as List[of ICompileUnit]):
+def booCompile(unit as CompileUnit, *refs as (ICompileUnit)):
 	compiler = newBooCompiler()
 	result = compiler.Run(unit)
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
@@ -62,7 +62,7 @@ def runTestWithJar(test as Module, jar as Module):
 
 	try:
 		unit = CompileUnit(test)
-		boojayCompile(unit, List[of ICompileUnit](jarCompileUnit))
+		boojayCompile(unit, jarCompileUnit)
 	except e:
 		print e.ToString() + unit.ToCodeString()
 

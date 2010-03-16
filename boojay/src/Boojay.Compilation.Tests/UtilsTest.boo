@@ -4,7 +4,6 @@ import System.IO
 import NUnit.Framework
 
 import Boo.Lang.Compiler.Ast
-import Boo.Lang.Compiler.TypeSystem
 
 import Boojay.Compilation
 import Boojay.Compilation.TypeSystem
@@ -56,7 +55,7 @@ class UtilsTest(TestWithCompilerContext):
 			className = "${type.FullName.Replace('.', '/')}.class"
 			File.Delete(className) if File.Exists(className)
 
-		boojayCompile(CompileUnit(compileWithJarsTest), List[of ICompileUnit](jarCompileUnit))
+		boojayCompile(CompileUnit(compileWithJarsTest), jarCompileUnit)
 		
 		Assert.AreEqual(1, len(compileWithJarsTest.Members))
 		
