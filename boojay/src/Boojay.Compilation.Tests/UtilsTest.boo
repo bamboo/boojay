@@ -33,15 +33,15 @@ class UtilsTest(TestWithCompilerContext):
 			
 			class Foo:
 				def getBarName():
-					Bar().getName()
+					Bar.getName()
 		|]
 		
 		library = [|
 			import java.lang
 			
 			class Bar:
-				def getName():
-					return "Bar"
+				static def getName():
+					return "bar"
 		|]
 		
 		generatedJar = generateTempJarWith(library)

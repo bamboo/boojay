@@ -12,8 +12,8 @@ import Boojay.Compilation
 import Boojay.Compilation.TypeSystem
 
 static class JavaClassRunner:
-	def run(className as string):
-		classPath = (ProjectFolders.binFolder(), ProjectFolders.distFolder() + "/boojay.lang.jar")
+	def run(className as string, *jars as (string)):
+		classPath = (ProjectFolders.binFolder(), ProjectFolders.distFolder() + "/boojay.lang.jar") + jars
 
 		exitCode as int, output, error as string = runp("java", "-cp ${join(classPath, Path.PathSeparator)} ${className}")
 		
@@ -89,7 +89,7 @@ def runTestWithJar(test as Module, jar as Module):
 		unit = CompileUnit(test)
 		boojayCompile(unit, jarCompileUnit)
 		className = moduleClassFor(test)
-		print JavaClassRunner.run(className)
+		print JavaClassRunner.run(className, Path.GetFullPath(generatedJar))
 	except e:
 		print e.ToString() + unit.ToCodeString()
 
