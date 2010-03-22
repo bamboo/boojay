@@ -22,7 +22,7 @@ class ClassFileParser(EmptyVisitor):
 		if isConstructor(name):
 			_members.Add(JavaConstructor(_declaringType))
 		else:
-			_members.Add(JavaMethod(_declaringType, name))
+			_members.Add(JavaMethod(_declaringType, name, desc, access))
 		return super(access, name, desc, signature, exceptions)
 		
 	private def isConstructor(methodName as string):
