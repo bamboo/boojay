@@ -2,6 +2,8 @@ namespace Boojay.Compilation.TypeSystem
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Services
+import Boo.Lang.PatternMatching
 
 class JarMethod(IMethod):
 	
@@ -49,10 +51,22 @@ class JarMethod(IMethod):
 	CallableType:
 		get: return my(TypeSystemServices).GetCallableType(self)
 	
-	ReturnType as IType: // FIXME
+	ReturnType as IType:
 		get:
-			print "RETURNTYPE:", org.objectweb.asm.Type.getReturnType(_descriptor)
-			return null // return my(NameResolutionService).ResolveQualifiedName()
+			asmType = org.objectweb.asm.Type.getReturnType(_descriptor)
+			return ResolveTypeName(asmType)
+		
+	private def ResolveTypeName(asmType as org.objectweb.asm.Type):
+		asmTypeName = asmType.ToString()
+		match asmTypeName:
+			case "b": return my(TypeSystemServices).ByteType
+			otherwise: return ResolveNonPrimitive(asmTypeName)
+	
+	private def ResolveNonPrimitive(typeName as string):
+		if typeName[0] == "L":
+			booTypeName = typeName[1:].Replace("/", ".")
+			return my(NameResolutionService).ResolveQualifiedName(booTypeName)
+		raise "Unknown NonPrimitive ${typeName}"
 		
 	def GetParameters(): // FIXME
 		return array[of IParameter](0)
