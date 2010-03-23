@@ -50,6 +50,12 @@ class JarMethod(IMethod):
 	
 	CallableType:
 		get: return my(TypeSystemServices).GetCallableType(self)
+		
+	GenericInfo:
+		get: return null
+		
+	IsDuckTyped:
+		get: return false
 	
 	ReturnType as IType:
 		get:
@@ -64,7 +70,7 @@ class JarMethod(IMethod):
 	
 	private def ResolveNonPrimitive(typeName as string):
 		if typeName[0:1] == "L":
-			booTypeName = typeName[1:].Replace("/", ".")
+			booTypeName = typeName[1:-1].Replace("/", ".")
 			resolvedType = my(NameResolutionService).ResolveQualifiedName(booTypeName)
 			raise "ResolveQualifiedName failed to resolve ${booTypeName}" unless resolvedType
 			return resolvedType
