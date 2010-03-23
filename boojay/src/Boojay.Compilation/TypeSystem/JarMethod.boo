@@ -63,9 +63,11 @@ class JarMethod(IMethod):
 			otherwise: return ResolveNonPrimitive(asmTypeName)
 	
 	private def ResolveNonPrimitive(typeName as string):
-		if typeName[0] == "L":
+		if typeName[0:1] == "L":
 			booTypeName = typeName[1:].Replace("/", ".")
-			return my(NameResolutionService).ResolveQualifiedName(booTypeName)
+			resolvedType = my(NameResolutionService).ResolveQualifiedName(booTypeName)
+			raise "ResolveQualifiedName failed to resolve ${booTypeName}" unless resolvedType
+			return resolvedType
 		raise "Unknown NonPrimitive ${typeName}"
 		
 	def GetParameters(): // FIXME
