@@ -25,7 +25,7 @@ class JarClass(AbstractType):
 		_jar = jar
 		_entry = entry
 		_name = Path.GetFileNameWithoutExtension(entry.getName())
-		_fullName = StringUtil.RemoveEnd(entry.getName().Replace("/", "."), ".class")
+		_fullName = entry.getName().Replace("/", ".").RemoveEnd(".class")
 		
 	override Name:
 		get: return _name
