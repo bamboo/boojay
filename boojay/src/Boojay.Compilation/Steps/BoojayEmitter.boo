@@ -22,6 +22,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	_currentMethod as Method
 	_typeMappings as Hash
 	_primitiveMappings as Hash
+	_generateJar as bool
+	
+	def constructor(generateJar as bool):
+		_generateJar = generateJar
 	
 	override def Initialize(context as CompilerContext):
 		super(context)		

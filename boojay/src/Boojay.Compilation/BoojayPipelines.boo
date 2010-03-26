@@ -26,6 +26,9 @@ class ProduceBytecode(BoojayCompilation):
 	def constructor():
 		Add(BoojayEmitter())
 		
+	def constructor(generateJar as bool):
+		Add(BoojayEmitter(generateJar))
+		
 class ProduceBoo(BoojayCompilation):
 	
 	def constructor():

@@ -28,12 +28,15 @@ def parseCommandLine(argv as (string)):
 		print "BCE000: ", x.Message
 		return null
 
+def selectPipeline(cmdLine as CommandLine):
+	return (BoojayPipelines.ProduceBoo() if cmdLine.Boo else BoojayPipelines.ProduceBytecode(cmdLine.JarPack))
+
 print "boojay .0a"
 
 cmdLine = parseCommandLine(argv)
 if cmdLine is null: return
 
-compiler = newBoojayCompiler((BoojayPipelines.ProduceBoo() if cmdLine.Boo else BoojayPipelines.ProduceBytecode()))
+compiler = newBoojayCompiler(selectPipeline(cmdLine))
 params = compiler.Parameters
 
 for fname in cmdLine.SourceFiles():
