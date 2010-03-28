@@ -46,9 +46,6 @@ class CommandLine(AbstractCommandLine):
 	[Option("Enables writing debug symbols.", LongForm: "debug")]
 	public Debug = false
 	
-	[Option("Generates Jar from classes.", LongForm: "jar")]
-	public JarPack = false
-
 	[Option("Enables verbose mode.", LongForm: "verbose")]
 	public Verbose = false
 	
