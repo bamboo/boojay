@@ -1,4 +1,4 @@
-﻿namespace Boojay.Compilation.Tests
+namespace Boojay.Compilation.Tests
 
 import java.io
 import java.util.zip

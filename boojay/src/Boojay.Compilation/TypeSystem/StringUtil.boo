@@ -9,4 +9,3 @@ def RemoveStart(value as string, start as string):
 def RemoveEnd(value as string, end as string):
 	return value unless value.EndsWith(end)
 	return value[:-end.Length]
-
