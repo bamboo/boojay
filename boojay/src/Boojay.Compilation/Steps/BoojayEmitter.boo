@@ -22,10 +22,6 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	_currentMethod as Method
 	_typeMappings as Hash
 	_primitiveMappings as Hash
-	_generateJar as bool
-	
-	def constructor(generateJar as bool):
-		_generateJar = generateJar
 	
 	override def Initialize(context as CompilerContext):
 		super(context)		
@@ -141,7 +137,14 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		fname = Path.Combine(outputDirectory(), classFullFileName(node))
 		ensurePath(fname)
 		File.WriteAllBytes(fname, bytecode)
+		addFilenameToContext(fname)
 #		verify bytecode
+
+	private def addFilenameToContext(filename as string):
+		key = "GeneratedClassFiles"
+		Context[key] = [] unless Context[key]
+		filenames = cast(List, Context[key])
+		filenames.Add(filename)
 		
 	def verify(bytecode as (byte)):
 		org.objectweb.asm.util.CheckClassAdapter.verify(ClassReader(bytecode), false, java.io.PrintWriter(java.lang.System.err))
