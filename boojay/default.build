@@ -103,6 +103,8 @@
 			</sources>
 			<references basedir="${build.dir}">
 				<include name="Boojay.Compilation.dll" />
+				<include name="IKVM.OpenJDK.Core.dll" />
+				<include name="IKVM.OpenJDK.Util.dll" />
 			</references>
 		</booc>
 		
