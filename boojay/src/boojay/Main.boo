@@ -42,15 +42,26 @@ def configureParams(cmdLine as CommandLine, params as CompilerParameters):
 		
 	for reference in cmdLine.References:
 		params.References.Add(loadAssembly(reference))
-		
-	for classpath in cmdLine.Classpaths:
-		params.References.Add(loadJar(classpath)) 
-		
+	
+	for classpath in retrieveJars(cmdLine.Classpaths):
+		params.References.Add(loadJar(classpath))
+
 	params.OutputAssembly = getOutputDirectory(cmdLine)
 	if cmdLine.DebugCompiler:
 		params.EnableTraceSwitch()
 		params.TraceLevel = System.Diagnostics.TraceLevel.Verbose
 		Trace.Listeners.Add(TextWriterTraceListener(System.Console.Error))
+
+def retrieveJars(classpaths as List[of string]):
+	for classpath in classpaths:
+		if classpath.EndsWith(".jar"):
+			yield classpath
+		else:
+			if SysIO.Directory.Exists(classpath):
+				for jar in SysIO.Directory.GetFiles(classpath, "*.jar"):
+					yield SysIO.Path.Combine(classpath, jar)
+			else:
+				print "Can' locate classpath: ${classpath}"
 
 def showErrorsWarnings(cmdLine as CommandLine, result as CompilerContext):
 	for error in result.Errors:
