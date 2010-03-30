@@ -20,5 +20,8 @@ class JarConstructor(IConstructor):
 	DeclaringType:
 		get: return _declaringType
 		
+	IsStatic:
+		get: return false
+		
 	def GetParameters():
 		return array[of IParameter](0)
