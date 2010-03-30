@@ -39,11 +39,12 @@ def configureParams(cmdLine as CommandLine, params as CompilerParameters):
 	for fname in cmdLine.SourceFiles():
 		if cmdLine.Verbose: print fname
 		params.Input.Add(FileInput(fname))
-		
-	for reference in cmdLine.References:
-		params.References.Add(loadAssembly(reference))
 	
-	for classpath in retrieveJars(cmdLine.Classpaths):
+	for reference in dotNetReferences(cmdLine.References): 
+		params.References.Add(loadAssembly(reference))
+	for classpath in retrieveJars(cmdLine.Classpaths): 
+		params.References.Add(loadJar(classpath))
+	for classpath in jarReferences(cmdLine.References): 
 		params.References.Add(loadJar(classpath))
 
 	params.OutputAssembly = getOutputDirectory(cmdLine)
@@ -51,6 +52,13 @@ def configureParams(cmdLine as CommandLine, params as CompilerParameters):
 		params.EnableTraceSwitch()
 		params.TraceLevel = System.Diagnostics.TraceLevel.Verbose
 		Trace.Listeners.Add(TextWriterTraceListener(System.Console.Error))
+
+def dotNetReferences(references as List[of string]):
+	return [reference for reference in references if (reference.EndsWith(".exe") or reference.EndsWith(".dll"))]
+
+def jarReferences(references as List[of string]):
+	for reference in references:
+		yield reference if reference.EndsWith(".jar")
 
 def retrieveJars(classpaths as List[of string]):
 	for classpath in classpaths:
