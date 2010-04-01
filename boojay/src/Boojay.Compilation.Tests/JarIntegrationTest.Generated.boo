@@ -6,4 +6,4 @@ partial class JarIntergrationTest:
 
 	[Test]
 	def Classes():
-		runTestCase("tests/jar_integration/Classes.boo")
+		runTestCase("tests/jar_integration/Infrastructure.boo")

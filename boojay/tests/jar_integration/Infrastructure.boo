@@ -5,7 +5,7 @@ test
 jar = [|
 	import java.lang
 	
-	class Foo:
+	class Unused:
 		pass
 |]
 
