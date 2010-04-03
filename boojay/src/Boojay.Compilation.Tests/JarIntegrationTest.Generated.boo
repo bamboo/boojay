@@ -5,5 +5,9 @@ import NUnit.Framework
 partial class JarIntergrationTest:
 
 	[Test]
-	def Classes():
+	def Infrastucture():
 		runTestCase("tests/jar_integration/Infrastructure.boo")
+
+	[Test]
+	def Classes():
+		runTestCase("tests/jar_integration/Classes.boo")

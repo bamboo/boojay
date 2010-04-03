@@ -91,7 +91,7 @@ def runTestWithJar(test as Module, jar as Module):
 		className = moduleClassFor(test)
 		print JavaClassRunner.run(className, Path.GetFullPath(generatedJar))
 	except e:
-		print e.ToString() + unit.ToCodeString()
+		raise e.ToString() + unit.ToCodeString()
 
 def moduleClassFor(module as Module):
 	return module.FullName.Replace("-", "_").Replace("$", "_") + "Module"
