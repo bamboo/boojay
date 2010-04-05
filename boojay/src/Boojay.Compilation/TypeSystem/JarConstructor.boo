@@ -13,20 +13,37 @@ class JarConstructor(IConstructor):
 		_declaringType = declaringType
 		_access = access
 	
-	IsPublic as bool:
+	IsPublic:
 		get: return (_access & Opcodes.ACC_PUBLIC) != 0
 
-	IsPrivate as bool:
+	IsPrivate:
 		get: return (_access & Opcodes.ACC_PRIVATE) != 0
+		
+	/*
+	IsProtected:
+		get: return (_access & Opcodes.ACC_PROTECTED) != 0
+		
+	IsInternal:
+		get: return false
+	*/
 
-	IsStatic as bool:
+	IsStatic:
 		get: return (_access & Opcodes.ACC_STATIC) != 0
+		
+	AcceptVarArgs:
+		get: return false
+		
+	CallableType:
+		get: return my(TypeSystemServices).GetCallableType(self)
 	
 	EntityType:
 		get: return EntityType.Constructor
 	
 	Type:
-		get: raise "Tenho que implementar"
+		get: return self.CallableType
+		
+	ReturnType:
+		get: return my(TypeSystemServices).VoidType
 					
 	Name:
 		get: return "constructor"
