@@ -24,7 +24,10 @@ class JarConstructor(IConstructor):
 	
 	EntityType:
 		get: return EntityType.Constructor
-				
+	
+	Type:
+		get: raise "Tenho que implementar"
+					
 	Name:
 		get: return "constructor"
 		
