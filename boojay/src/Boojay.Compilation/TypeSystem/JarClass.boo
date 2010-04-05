@@ -8,7 +8,6 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Core
 import Boo.Lang.Compiler.TypeSystem.Services
-import Boo.Lang.Useful.Attributes
 
 import org.objectweb.asm
 
@@ -20,6 +19,7 @@ class JarClass(AbstractType):
 	_entry as JarEntry
 	_name as string
 	_fullName as string
+	_visitor as ClassFileParser
 	
 	def constructor(jar as JarFile, entry as JarEntry):
 		_jar = jar
@@ -36,17 +36,25 @@ class JarClass(AbstractType):
 	override EntityType:
 		get: return EntityType.Type
 		
-	[once]
+	override IsClass:
+		get: return true
+
+	override IsFinal:
+		get: 
+			VisitClass()
+			return _visitor.IsFinal
+		
 	override def GetMembers():
-		return array(LoadMembers())
+		VisitClass()
+		return array(_visitor.Members)
 		
 	def Resolve(result as ICollection[of IEntity], name as string, typesToConsider as EntityType):
 		return my(NameResolutionService).Resolve(name, GetMembers(), typesToConsider, result)
 		
-	private def LoadMembers() as IEntity*:
+	private def VisitClass():
+		return if _visitor
 		reader = ClassReader(_jar.getInputStream(_entry))
-		visitor = ClassFileParser(self)
+		_visitor = ClassFileParser(self)
 		flags = ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES
-		reader.accept(visitor, flags)
-		return visitor.Members
+		reader.accept(_visitor, flags)
 
