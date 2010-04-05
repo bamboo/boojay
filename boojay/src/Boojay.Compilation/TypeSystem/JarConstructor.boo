@@ -5,7 +5,7 @@ import Boo.Lang.Compiler.TypeSystem
 
 import org.objectweb.asm
 
-class JarConstructor(IConstructor):
+class JarConstructor(IConstructor, IMethod):
 	_declaringType as IType
 	_access as int
 	
@@ -14,7 +14,8 @@ class JarConstructor(IConstructor):
 		_access = access
 	
 	IsPublic:
-		get: return (_access & Opcodes.ACC_PUBLIC) != 0
+		get:
+			return (_access & Opcodes.ACC_PUBLIC) != 0
 
 	IsPrivate:
 		get: return (_access & Opcodes.ACC_PRIVATE) != 0
@@ -40,7 +41,8 @@ class JarConstructor(IConstructor):
 		get: return EntityType.Constructor
 	
 	Type:
-		get: return self.CallableType
+		get:
+			return self.CallableType
 		
 	ReturnType:
 		get: return my(TypeSystemServices).VoidType
