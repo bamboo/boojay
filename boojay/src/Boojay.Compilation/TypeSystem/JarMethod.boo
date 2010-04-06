@@ -2,6 +2,7 @@ namespace Boojay.Compilation.TypeSystem
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Useful.Attributes
 
 class JarMethod(IMethod):
 	_declaringType as IType
@@ -64,10 +65,11 @@ class JarMethod(IMethod):
 		get: return false
 	
 	ReturnType as IType:
-		get:
+		[once] get:
 			asmType = org.objectweb.asm.Type.getReturnType(_descriptor)
 			return AsmTypeResolver.ResolveTypeName(asmType)
-				
+	
+	[once]
 	def GetParameters():
 		asmParamTypes = org.objectweb.asm.Type.getArgumentTypes(_descriptor)
 		result = (Parameter(self, "arg${i}", param) for i, param in enumerate(asmParamTypes))
@@ -82,11 +84,10 @@ class Parameter(IParameter):
 		_declaringType = declaringType
 		_name = name
 		_type = type
-		
 		Boojay.Compilation.log("${FullName} as ${_type} AS ${Type}")
 		
 	Type as IType:
-		get: return AsmTypeResolver.ResolveTypeName(_type)
+		[once] get: return AsmTypeResolver.ResolveTypeName(_type)
 		
 	EntityType:
 		get: return EntityType.Parameter
