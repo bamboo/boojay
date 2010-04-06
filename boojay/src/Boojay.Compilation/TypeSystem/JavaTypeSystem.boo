@@ -10,6 +10,7 @@ class JavaReflectionTypeSystemProvider(ReflectionTypeSystemProvider):
 	
 	def constructor():
 		ReplaceMapping(System.String, JavaLangString)
+		ReplaceMapping(java.lang.String, JavaLangString)
 		ReplaceMapping(System.MulticastDelegate, Boojay.Lang.MulticastDelegate)
 		ReplaceMapping(Boo.Lang.List, Boojay.Lang.List)
 		ReplaceMapping(Boo.Lang.Hash, Boojay.Lang.Hash)
