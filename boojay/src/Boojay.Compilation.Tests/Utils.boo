@@ -17,7 +17,7 @@ static class JavaClassRunner:
 
 		exitCode as int, output, error as string = runp("java", "-cp ${join(classPath, Path.PathSeparator)} ${className}")
 		
-		if exitCode != 0: raise error
+		if exitCode != 0: raise output + "\n" + error
 		return output
 		
 	def runp(filename as string, arguments as string):
