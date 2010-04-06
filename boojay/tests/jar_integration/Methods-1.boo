@@ -1,5 +1,5 @@
 """
-test
+no parameter override
 """
 
 jar = [|
@@ -17,7 +17,7 @@ test = [|
 		override def WithoutParameter():
 			pass
 		
-	print "test"
+	print "no parameter override"
 |]
 
 runTestWithJar(test, jar)

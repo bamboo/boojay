@@ -1,5 +1,5 @@
 """
-test
+override with primitive type parameter
 """
 
 jar = [|
@@ -17,7 +17,7 @@ test = [|
 		override def WithParameter(param as int):
 			pass
 		
-	print "test"
+	print "override with primitive type parameter"
 |]
 
 runTestWithJar(test, jar)
