@@ -97,5 +97,5 @@ class Parameter(IParameter):
 	FullName:
 		get: return "${_declaringType.FullName}.${_name}"
 		
-	IsByRef: // FIXME
-		get: return true
+	IsByRef:
+		get: return false
