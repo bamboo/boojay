@@ -129,8 +129,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				if node.IsAbstract: attrs += Opcodes.ACC_ABSTRACT
 			case NodeType.InterfaceDefinition:
 				attrs += (Opcodes.ACC_INTERFACE + Opcodes.ACC_ABSTRACT)
-		if node.IsPublic:
-			attrs += Opcodes.ACC_PUBLIC
+		attrs += Opcodes.ACC_PUBLIC
 		return attrs
 		
 	def writeClassFileFor(node as TypeDefinition, bytecode as (byte)):
