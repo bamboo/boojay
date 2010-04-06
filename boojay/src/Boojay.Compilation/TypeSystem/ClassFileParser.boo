@@ -33,12 +33,12 @@ class ClassFileParser(EmptyVisitor):
 		_access = access
 
 	override def visitMethod(access as int, name as string,
-					desc as string, signature as string, exceptions as (string)):
+					descriptor as string, signature as string, exceptions as (string)):
 		if isConstructor(name):
-			_members.Add(JarConstructor(_declaringType, access))
+			_members.Add(JarConstructor(_declaringType, descriptor, access))
 		else:
-			_members.Add(JarMethod(_declaringType, name, desc, access))
-		return super(access, name, desc, signature, exceptions)
+			_members.Add(JarMethod(_declaringType, name, descriptor, access))
+		return super(access, name, descriptor, signature, exceptions)
 		
 	private def isConstructor(methodName as string):
 		return methodName.Equals("<init>")

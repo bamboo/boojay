@@ -2,11 +2,8 @@ namespace Boojay.Compilation.TypeSystem
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
-import Boo.Lang.Compiler.TypeSystem.Services
-import Boo.Lang.PatternMatching
 
 class JarMethod(IMethod):
-	
 	_declaringType as IType
 	_name as string
 	_descriptor as string
@@ -41,8 +38,14 @@ class JarMethod(IMethod):
 		
 	AcceptVarArgs: 
 		get: return (_access & org.objectweb.asm.Opcodes.ACC_VARARGS) != 0
+		
+	IsVirtual:
+		get: return (_access & org.objectweb.asm.Opcodes.ACC_FINAL) == 0
 
 	IsExtension:
+		get: return false // FIXME
+		
+	IsSpecialName:
 		get: return false // FIXME
 		
 	Type:
@@ -54,27 +57,45 @@ class JarMethod(IMethod):
 	GenericInfo:
 		get: return null
 		
+	ConstructedInfo:
+		get: return null
+		
 	IsDuckTyped:
 		get: return false
 	
 	ReturnType as IType:
 		get:
 			asmType = org.objectweb.asm.Type.getReturnType(_descriptor)
-			return ResolveTypeName(asmType)
+			return AsmTypeResolver.ResolveTypeName(asmType)
+				
+	def GetParameters():
+		asmParamTypes = org.objectweb.asm.Type.getArgumentTypes(_descriptor)
+		result = (Parameter(self, "arg${i}", param) for i, param in enumerate(asmParamTypes))
+		return array(IParameter, result)
+
+class Parameter(IParameter):
+	_declaringType as IMethod
+	_name as string
+	_type as org.objectweb.asm.Type
 		
-	private def ResolveTypeName(asmType as org.objectweb.asm.Type):
-		asmTypeName = asmType.ToString()
-		match asmTypeName:
-			case "b": return my(TypeSystemServices).ByteType
-			otherwise: return ResolveNonPrimitive(asmTypeName)
-	
-	private def ResolveNonPrimitive(typeName as string):
-		if typeName[0:1] == "L":
-			booTypeName = typeName[1:-1].Replace("/", ".")
-			resolvedType = my(NameResolutionService).ResolveQualifiedName(booTypeName)
-			raise "ResolveQualifiedName failed to resolve ${booTypeName}" unless resolvedType
-			return resolvedType
-		raise "Unknown NonPrimitive ${typeName}"
+	def constructor(declaringType as IMethod, name as string, type as org.objectweb.asm.Type):
+		_declaringType = declaringType
+		_name = name
+		_type = type
 		
-	def GetParameters(): // FIXME
-		return array[of IParameter](0)
+		Boojay.Compilation.log("${FullName} as ${_type} AS ${Type}")
+		
+	Type as IType:
+		get: return AsmTypeResolver.ResolveTypeName(_type)
+		
+	EntityType:
+		get: return EntityType.Parameter
+
+	Name:
+		get: return _name
+		
+	FullName:
+		get: return "${_declaringType.FullName}.${_name}"
+		
+	IsByRef: // FIXME
+		get: return true

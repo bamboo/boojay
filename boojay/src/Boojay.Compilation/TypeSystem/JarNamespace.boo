@@ -1,8 +1,5 @@
 namespace Boojay.Compilation.TypeSystem
 
-import Boo.Lang.Compiler.TypeSystem
-import Boo.Lang.Useful.Attributes
-
 import java.util.jar
 
 class JarNamespace(JarNamespaceCommon):
