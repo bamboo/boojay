@@ -23,3 +23,7 @@ partial class JarIntergrationTest:
 	[Test]
 	def Methods_3():
 		runTestCase("tests/jar_integration/Methods-3.boo")
+
+	[Test]
+	def Methods_4():
+		runTestCase("tests/jar_integration/Methods-4.boo")
