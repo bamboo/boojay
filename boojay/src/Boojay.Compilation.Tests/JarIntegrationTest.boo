@@ -28,7 +28,6 @@ partial class JarIntergrationTest(CommonIntegrationTest):
 	override def runTest(main as Module):
 		result = captureOutput:
 			_assembly.EntryPoint.Invoke(null, (null,))
-		
 		return result
 		
 	private def captureOutput(block as callable):
@@ -38,6 +37,9 @@ partial class JarIntergrationTest(CommonIntegrationTest):
 		
 		try:
 			block()
+		except x:
+			old.WriteLine(writer.ToString())
+			raise
 		ensure:
 			System.Console.SetOut(old)
 			
