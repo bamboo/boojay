@@ -13,8 +13,7 @@ abstract class JarNamespaceCommon(AbstractNamespace):
 	_children = {}
 	
 	virtual FullName as string:
-		get:
-			return ""
+		get: return ""
 			
 	[once]
 	override def GetMembers():
