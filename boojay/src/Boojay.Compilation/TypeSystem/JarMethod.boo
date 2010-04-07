@@ -84,7 +84,6 @@ class Parameter(IParameter):
 		_declaringType = declaringType
 		_name = name
 		_type = type
-		Boojay.Compilation.log("${FullName} as ${_type} AS ${Type}")
 		
 	Type as IType:
 		[once] get: return AsmTypeResolver.ResolveTypeName(_type)
