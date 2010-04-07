@@ -63,7 +63,6 @@ def generateTempJarWith(code as Module):
 	jar = Path.GetTempFileName()
 	boojayCompile(CompileUnit(code))
 	generateJar(jar, "${type.FullName.Replace('.', '/')}.class" for type in code.Members)
-	
 	return jar
 
 def booCompile(unit as CompileUnit):
@@ -84,9 +83,8 @@ def newBooCompiler():
 def runTestWithJar(test as Module, jar as Module):
 	generatedJar = generateTempJarWith(jar)
 	jarCompileUnit = JarTypeSystemProvider().ForJar(generatedJar)
-
+	unit = CompileUnit(test)
 	try:
-		unit = CompileUnit(test)
 		boojayCompile(unit, jarCompileUnit)
 		className = moduleClassFor(test)
 		print JavaClassRunner.run(className, Path.GetFullPath(generatedJar))
