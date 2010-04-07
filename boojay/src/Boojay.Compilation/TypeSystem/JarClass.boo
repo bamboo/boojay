@@ -39,6 +39,9 @@ class JarClass(AbstractType):
 	override IsFinal:
 		get: return ClassFile().IsFinal
 		
+	override def IsAssignableFrom(other as IType):
+		return other is self
+		
 	[once]
 	override def GetMembers():
 		return array(ClassFile().Members)
