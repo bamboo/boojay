@@ -1095,8 +1095,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			emitInstruction iconstOpcodeFor(value)
 		elif value >= -127 and value <= 127:
 			emitIntInsn Opcodes.BIPUSH, value
-		else:
+		elif value >= short.MinValue and value <= short.MaxValue:
 			emitIntInsn Opcodes.SIPUSH, value
+		else:
+			LDC java.lang.Integer(value)
 			
 	def ICONST_0():
 		emitInstruction Opcodes.ICONST_0
