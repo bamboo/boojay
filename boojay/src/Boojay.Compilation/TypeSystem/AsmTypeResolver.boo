@@ -7,6 +7,11 @@ import Boo.Lang.PatternMatching
 
 static class AsmTypeResolver:
 	def ResolveTypeName(asmType as org.objectweb.asm.Type):
+		resolved = _ResolveTypeName(asmType)
+		#print asmType, "=>", repr(resolved)
+		return resolved
+		
+	private def _ResolveTypeName(asmType as org.objectweb.asm.Type):
 		asmTypeName = asmType.ToString()
 		match asmTypeName:
 			case "b": return my(TypeSystemServices).ByteType
@@ -22,3 +27,6 @@ static class AsmTypeResolver:
 			return resolvedType
 		raise "Unknown NonPrimitive ${typeName}"
 	
+def repr(o):
+	code = (0 if o is null else o.GetHashCode())
+	return "${o} (${code})"
