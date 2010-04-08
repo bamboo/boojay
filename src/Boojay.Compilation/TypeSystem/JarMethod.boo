@@ -34,6 +34,12 @@ class JarMethod(IMethod):
 	IsProtected:
 		get: return (_access & org.objectweb.asm.Opcodes.ACC_PROTECTED) != 0
 
+	IsPrivate:
+		get: return (_access & org.objectweb.asm.Opcodes.ACC_PRIVATE) != 0
+
+	IsInternal:
+		get: return false
+
 	IsStatic:
 		get: return (_access & org.objectweb.asm.Opcodes.ACC_STATIC) != 0
 		
