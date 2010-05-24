@@ -15,7 +15,7 @@ static class JavaClassRunner:
 	def run(className as string, *jars as (string)):
 		classPath = (ProjectFolders.binFolder(), ProjectFolders.distFolder() + "/boojay.lang.jar") + jars
 
-		exitCode as int, output, error as string = runp("java", "-cp ${join(classPath, Path.PathSeparator)} ${className}")
+		exitCode as int, output, error as string = runp("java", "-cp ${quote(join(classPath, Path.PathSeparator))} ${className}")
 		
 		if exitCode != 0: raise output + "\n" + error
 		return output
@@ -93,4 +93,7 @@ def runTestWithJar(test as Module, jar as Module):
 
 def moduleClassFor(module as Module):
 	return module.FullName.Replace("-", "_").Replace("$", "_") + "Module"
+	
+def quote(arg as string):
+	return '"' + arg + '"'
 
