@@ -2,7 +2,6 @@ namespace Boojay.Compilation.Tests
 
 import System
 import System.IO
-import System.Diagnostics
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
