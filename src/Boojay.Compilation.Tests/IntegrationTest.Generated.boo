@@ -289,9 +289,11 @@ partial class IntegrationTest:
 	[Test] def Classes_2():
 		runTestCase("tests/integration/types/Classes-2.boo")
 		
+	
 	[Test] def Constructors_1():
 		runTestCase("tests/integration/types/Constructors-1.boo")
 		
+	
 	[Test] def Equals_1():
 		runTestCase("tests/integration/types/Equals-1.boo")
 		

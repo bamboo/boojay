@@ -50,7 +50,11 @@
 	
 	<target name="Boojay.Compilation.Tests" depends="boojay">
 		
-		<boo src="refresh-tests.boo" />
+		<boo src="refresh-tests.boo">
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.PatternMatching.dll" />
+			</references>
+		</boo>
 		
 		<booc target="library" output="${build.dir}/Boojay.Compilation.Tests.dll">
 			<sources basedir="src/Boojay.Compilation.Tests">
