@@ -1,3 +1,4 @@
+// ignore WIP
 """
 true
 false
@@ -17,8 +18,7 @@ class Environments:
 	static _environment as IEnvironment
 	
 	static Current:
-		get:
-			return _environment
+		get: return _environment
 	
 	static def With(environment as IEnvironment, code as Code):
 		previous = _environment
