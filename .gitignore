@@ -4,3 +4,4 @@ dist
 *~
 *.pidb
 *.userprefs
+test-results
