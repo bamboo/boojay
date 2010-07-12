@@ -1,68 +1,73 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{9BC8DBB1-64DD-4DFD-93F3-3290EE4A2620}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E7C65813-7813-4EB5-8489-15E405D2010A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Boojay.Compilation.Tests</RootNamespace>
+    <UsePartialTypes>false</UsePartialTypes>
     <AssemblyName>Boojay.Compilation.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\rodrigob\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
-    <NoStdLib>False</NoStdLib>
-    <Ducky>False</Ducky>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <Strict>False</Strict>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>..\..\bin\</OutputPath>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <OutputPath>..\..\bin</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>False</DebugSymbols>
-    <DebugType>None</DebugType>
-    <Optimize>True</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <OutputPath>..\..\bin</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Boo.Lang.Compiler">
-      <HintPath>..\..\..\boo\bin\Boo.Lang.Compiler.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang.Useful" />
-    <Reference Include="IKVM.OpenJDK.Core">
+    <Reference Include="System" />
+    <Reference Include="Boo.Lang, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />
+    <Reference Include="Boo.Lang.PatternMatching, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />
+    <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
+    <Reference Include="Boo.Lang.Useful, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />
+    <Reference Include="IKVM.OpenJDK.Core, Version=0.42.0.4, Culture=neutral, PublicKeyToken=13235d27fcbfff58">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.OpenJDK.Core.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Util">
+    <Reference Include="IKVM.OpenJDK.Util, Version=0.42.0.4, Culture=neutral, PublicKeyToken=13235d27fcbfff58">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ikvm-0.42.0.4\bin\IKVM.OpenJDK.Util.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework" />
+    <Reference Include="Boo.Lang.Compiler, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />
+    <Reference Include="Boo.Lang.Parser, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="BeanPropertyFinderTest.boo" />
+    <Compile Include="CommonIntegrationTest.boo" />
     <Compile Include="GenericMethodDefinitionFinderTest.boo" />
     <Compile Include="IntegrationTest.boo" />
     <Compile Include="IntegrationTest.Generated.boo" />
+    <Compile Include="JarIntegrationTest.boo" />
+    <Compile Include="JarIntegrationTest.Generated.boo" />
     <Compile Include="Jars.boo" />
     <Compile Include="JarTypeSystemProviderTest.boo" />
     <Compile Include="JavaTypeSystemTest.boo" />
     <Compile Include="TestWithCompilerContext.boo" />
     <Compile Include="Utils.boo" />
+    <Compile Include="UtilsTest.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Boojay.Compilation\Boojay.Compilation.booproj">
-      <Project>{7452B907-B013-4974-B09C-573E0790F7FE}</Project>
+      <Project>{1A8AB3B2-D4D8-46EF-9505-26AB010AA7CA}</Project>
       <Name>Boojay.Compilation</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>

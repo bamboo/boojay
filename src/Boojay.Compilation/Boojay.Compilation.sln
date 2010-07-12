@@ -1,62 +1,44 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-# SharpDevelop 3.2.0.5403
-Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Boojay.Compilation", "Boojay.Compilation.booproj", "{7452B907-B013-4974-B09C-573E0790F7FE}"
+Project("{B3672514-7503-4B01-B4B4-B44E87061EA2}") = "Boojay.Compilation", "Boojay.Compilation.booproj", "{1A8AB3B2-D4D8-46EF-9505-26AB010AA7CA}"
 EndProject
-Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Boojay.Macros", "..\Boojay.Macros\Boojay.Macros.booproj", "{E284CF29-8B8F-4EE7-B866-9C9BBA191819}"
+Project("{B3672514-7503-4B01-B4B4-B44E87061EA2}") = "Boojay.Lang", "..\Boojay.Lang\Boojay.Lang.booproj", "{D910050A-F1F8-4773-9E34-8252BBE1CDFE}"
 EndProject
-Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Boojay.Lang", "..\Boojay.Lang\Boojay.Lang.booproj", "{777E5176-F898-4440-B038-89907F4F5D5C}"
+Project("{B3672514-7503-4B01-B4B4-B44E87061EA2}") = "Boojay.Macros", "..\Boojay.Macros\Boojay.Macros.booproj", "{4FEAC342-EC91-4CAF-BF65-44D7B839FA1C}"
 EndProject
-Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Boojay.Compilation.Tests", "..\Boojay.Compilation.Tests\Boojay.Compilation.Tests.booproj", "{9BC8DBB1-64DD-4DFD-93F3-3290EE4A2620}"
+Project("{B3672514-7503-4B01-B4B4-B44E87061EA2}") = "boojay", "..\boojay\boojay.booproj", "{18EC5CD9-B3EF-423B-BF50-2A17234F7F3D}"
 EndProject
-Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "boojay", "..\boojay\boojay.booproj", "{F34C5CC2-AC9D-4AE6-8BF4-0E5E2DF2A1C2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Boo", "Boo", "{5EE884D0-FCFB-4F43-800A-C1727D0A7A7A}"
-	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang.Compiler-VS2005", "..\..\..\boo\src\Boo.Lang.Compiler\Boo.Lang.Compiler-VS2005.csproj", "{7EAC855C-AB70-4CEB-9B9A-8B60712277E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang-VS2005", "..\..\..\boo\src\Boo.Lang\Boo.Lang-VS2005.csproj", "{A359E52E-5E90-40F3-A5F0-257FE2D545EE}"
+Project("{B3672514-7503-4B01-B4B4-B44E87061EA2}") = "Boojay.Compilation.Tests", "..\Boojay.Compilation.Tests\Boojay.Compilation.Tests.booproj", "{E7C65813-7813-4EB5-8489-15E405D2010A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7452B907-B013-4974-B09C-573E0790F7FE}.Debug|x86.Build.0 = Debug|x86
-		{7452B907-B013-4974-B09C-573E0790F7FE}.Debug|x86.ActiveCfg = Debug|x86
-		{7452B907-B013-4974-B09C-573E0790F7FE}.Release|x86.Build.0 = Release|x86
-		{7452B907-B013-4974-B09C-573E0790F7FE}.Release|x86.ActiveCfg = Release|x86
-		{E284CF29-8B8F-4EE7-B866-9C9BBA191819}.Debug|x86.Build.0 = Debug|x86
-		{E284CF29-8B8F-4EE7-B866-9C9BBA191819}.Debug|x86.ActiveCfg = Debug|x86
-		{E284CF29-8B8F-4EE7-B866-9C9BBA191819}.Release|x86.Build.0 = Release|x86
-		{E284CF29-8B8F-4EE7-B866-9C9BBA191819}.Release|x86.ActiveCfg = Release|x86
-		{777E5176-F898-4440-B038-89907F4F5D5C}.Debug|x86.Build.0 = Debug|x86
-		{777E5176-F898-4440-B038-89907F4F5D5C}.Debug|x86.ActiveCfg = Debug|x86
-		{777E5176-F898-4440-B038-89907F4F5D5C}.Release|x86.Build.0 = Release|x86
-		{777E5176-F898-4440-B038-89907F4F5D5C}.Release|x86.ActiveCfg = Release|x86
-		{9BC8DBB1-64DD-4DFD-93F3-3290EE4A2620}.Debug|x86.Build.0 = Debug|x86
-		{9BC8DBB1-64DD-4DFD-93F3-3290EE4A2620}.Debug|x86.ActiveCfg = Debug|x86
-		{9BC8DBB1-64DD-4DFD-93F3-3290EE4A2620}.Release|x86.Build.0 = Release|x86
-		{9BC8DBB1-64DD-4DFD-93F3-3290EE4A2620}.Release|x86.ActiveCfg = Release|x86
-		{F34C5CC2-AC9D-4AE6-8BF4-0E5E2DF2A1C2}.Debug|x86.Build.0 = Debug|x86
-		{F34C5CC2-AC9D-4AE6-8BF4-0E5E2DF2A1C2}.Debug|x86.ActiveCfg = Debug|x86
-		{F34C5CC2-AC9D-4AE6-8BF4-0E5E2DF2A1C2}.Release|x86.Build.0 = Release|x86
-		{F34C5CC2-AC9D-4AE6-8BF4-0E5E2DF2A1C2}.Release|x86.ActiveCfg = Release|x86
-		{7EAC855C-AB70-4CEB-9B9A-8B60712277E2}.Debug|x86.Build.0 = Debug|Any CPU
-		{7EAC855C-AB70-4CEB-9B9A-8B60712277E2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7EAC855C-AB70-4CEB-9B9A-8B60712277E2}.Release|x86.Build.0 = Release|Any CPU
-		{7EAC855C-AB70-4CEB-9B9A-8B60712277E2}.Release|x86.ActiveCfg = Release|Any CPU
-		{A359E52E-5E90-40F3-A5F0-257FE2D545EE}.Debug|x86.Build.0 = Debug|Any CPU
-		{A359E52E-5E90-40F3-A5F0-257FE2D545EE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A359E52E-5E90-40F3-A5F0-257FE2D545EE}.Release|x86.Build.0 = Release|Any CPU
-		{A359E52E-5E90-40F3-A5F0-257FE2D545EE}.Release|x86.ActiveCfg = Release|Any CPU
+		{18EC5CD9-B3EF-423B-BF50-2A17234F7F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EC5CD9-B3EF-423B-BF50-2A17234F7F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EC5CD9-B3EF-423B-BF50-2A17234F7F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EC5CD9-B3EF-423B-BF50-2A17234F7F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8AB3B2-D4D8-46EF-9505-26AB010AA7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8AB3B2-D4D8-46EF-9505-26AB010AA7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8AB3B2-D4D8-46EF-9505-26AB010AA7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8AB3B2-D4D8-46EF-9505-26AB010AA7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FEAC342-EC91-4CAF-BF65-44D7B839FA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FEAC342-EC91-4CAF-BF65-44D7B839FA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FEAC342-EC91-4CAF-BF65-44D7B839FA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FEAC342-EC91-4CAF-BF65-44D7B839FA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D910050A-F1F8-4773-9E34-8252BBE1CDFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D910050A-F1F8-4773-9E34-8252BBE1CDFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D910050A-F1F8-4773-9E34-8252BBE1CDFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D910050A-F1F8-4773-9E34-8252BBE1CDFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7C65813-7813-4EB5-8489-15E405D2010A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C65813-7813-4EB5-8489-15E405D2010A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C65813-7813-4EB5-8489-15E405D2010A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C65813-7813-4EB5-8489-15E405D2010A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A359E52E-5E90-40F3-A5F0-257FE2D545EE} = {5EE884D0-FCFB-4F43-800A-C1727D0A7A7A}
-		{7EAC855C-AB70-4CEB-9B9A-8B60712277E2} = {5EE884D0-FCFB-4F43-800A-C1727D0A7A7A}
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Boojay.Compilation.booproj
 	EndGlobalSection
 EndGlobal
