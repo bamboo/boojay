@@ -144,6 +144,8 @@
 				<include name="IKVM.Runtime.dll" />
 			</fileset>
 		</copy>
+		
+		<loadtasks assembly="${build.dir}/Boo.NAnt.Tasks.dll" />
 	</target>
 	
 	<target name="update-asm.dll" depends="init">
@@ -154,7 +156,6 @@
 	
 	<target name="init">
 		<mkdir dir="${build.dir}" />
-		<loadtasks assembly="${boo.dir}/Boo.NAnt.Tasks.dll" />
 	</target>
 	
 </project>
