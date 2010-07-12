@@ -425,10 +425,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			case builtin = BuiltinFunction():
 				emitBuiltinInvocation builtin, node
 				
-	def emitSuperMethodInvocation(method as InternalMethod, node as MethodInvocationExpression):
+	def emitSuperMethodInvocation(method as IMethod, node as MethodInvocationExpression):
 		ALOAD 0
 		emit node.Arguments
-		INVOKESPECIAL method.Overriden
+		INVOKESPECIAL method
 				
 	def emitConstructorInvocation(ctor as IConstructor, node as MethodInvocationExpression):
 		match node.Target:
@@ -894,7 +894,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	override def OnArrayLiteralExpression(node as ArrayLiteralExpression):
 		
-		elementType = typeOf(node).GetElementType()
+		elementType = typeOf(node).ElementType
 		
 		ICONST len(node.Items)
 		emitNewArrayOpcodeFor elementType
@@ -963,7 +963,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		emitArrayLoadOpcodeFor node
 		
 	def emitArrayLoadOpcodeFor(node as SlicingExpression):
-		emitArrayLoadOpcodeFor typeOf(node.Target).GetElementType()
+		emitArrayLoadOpcodeFor typeOf(node.Target).ElementType
 		
 	def emitArrayLoadOpcodeFor(elementType as IType):
 		emitInstruction arrayLoadOpcodeFor(elementType)
@@ -983,7 +983,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		emitArrayLoadOpcodeFor node
 		
 	def ensureLocal(e as Expression):
-		local = optionalEntity(e) as InternalLocal
+		local = e.Entity as InternalLocal
 		if local is not null: return local
 		
 		local = newTemp(typeOf(e))
@@ -1234,10 +1234,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				
 	def bindingFor(node as Node):
 		return GetEntity(node)
-		
-	def optionalEntity(node as Node):
-		return self.TypeSystemServices.GetOptionalEntity(node)
-		
+
 	def javaType(typeRef as TypeReference):
 		return javaType(bindingFor(typeRef) as IType)
 		
@@ -1247,7 +1244,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		return "L" + javaType(erasureFor(type)) + ";"
 		
 	def arrayDescriptor(type as IType):
-		return "[" + typeDescriptor(type.GetElementType())
+		return "[" + typeDescriptor(type.ElementType)
 		
 	def javaType(entity as IEntity):
 		return javaType(entity as IType)

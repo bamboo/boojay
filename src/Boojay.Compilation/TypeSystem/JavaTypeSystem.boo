@@ -19,8 +19,8 @@ class JavaReflectionTypeSystemProvider(ReflectionTypeSystemProvider):
 	override def CreateEntityForRegularType(type as System.Type):
 		return BeanAwareType(self, type)
 	
-	def ReplaceMapping(existing as System.Type, new as System.Type):
-		mapping = Map(new)
+	def ReplaceMapping(existing as System.Type, newType as System.Type):
+		mapping = Map(newType)
 		MapTo(existing, mapping)
 		return mapping
 

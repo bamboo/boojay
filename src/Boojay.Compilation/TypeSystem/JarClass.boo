@@ -4,11 +4,11 @@ import System
 import System.Collections.Generic
 import System.IO
 
-import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Core
 import Boo.Lang.Compiler.TypeSystem.Services
 
+import Boo.Lang.Environments
 import Boo.Lang.Useful.Attributes
 
 import org.objectweb.asm

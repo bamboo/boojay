@@ -1,8 +1,7 @@
 namespace Boojay.Compilation.Tests
 
 import NUnit.Framework
-
-import Boo.Lang.Compiler
+import Boo.Lang.Environments
 import Boo.Lang.Compiler.TypeSystem
 
 [TestFixture]

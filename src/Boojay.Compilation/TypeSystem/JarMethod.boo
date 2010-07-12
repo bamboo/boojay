@@ -1,6 +1,7 @@
 namespace Boojay.Compilation.TypeSystem
 
-import Boo.Lang.Compiler
+import Boo.Lang.Environments
+
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Useful.Attributes
 
@@ -39,6 +40,9 @@ class JarMethod(IMethod):
 
 	IsInternal:
 		get: return false
+		
+	IsFinal:
+		get: return (_access & org.objectweb.asm.Opcodes.ACC_FINAL) != 0
 
 	IsStatic:
 		get: return (_access & org.objectweb.asm.Opcodes.ACC_STATIC) != 0

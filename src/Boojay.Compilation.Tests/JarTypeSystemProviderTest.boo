@@ -3,6 +3,7 @@ namespace Boojay.Compilation.Tests
 import System
 import NUnit.Framework
 
+import Boo.Lang.Environments
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem

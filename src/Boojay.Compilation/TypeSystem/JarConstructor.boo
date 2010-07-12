@@ -1,6 +1,7 @@
 namespace Boojay.Compilation.TypeSystem
 
-import Boo.Lang.Compiler
+import Boo.Lang.Environments
+
 import Boo.Lang.Compiler.TypeSystem
 
 class JarConstructor(IConstructor, JarMethod):

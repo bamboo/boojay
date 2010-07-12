@@ -46,7 +46,7 @@ class InjectCasts(AbstractTransformerCompilerStep):
 		return CodeBuilder.CreateTypeofExpression(boxedType)
 		
 	override def LeaveMethodInvocationExpression(node as MethodInvocationExpression):
-		m = optionalBindingFor(node.Target) as IMethodBase
+		m = node.Target.Entity as IMethodBase
 		if m is null:
 			return
 		
@@ -72,10 +72,7 @@ class InjectCasts(AbstractTransformerCompilerStep):
 		if node.Expression is null:
 			return
 		node.Expression = checkCast(_currentReturnType, node.Expression)
-			
-	def optionalBindingFor(node as Node):
-		return typeSystem().GetOptionalEntity(node)
-		
+
 	def checkCast(expected as IType, e as Expression):
 		actual = typeOf(e)
 		return checkCast(expected, actual, e)

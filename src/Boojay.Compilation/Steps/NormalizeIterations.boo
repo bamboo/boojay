@@ -27,7 +27,7 @@ class NormalizeIterations(AbstractVisitorCompilerStep):
 	def isGetEnumerableInvocation(e as Expression):
 		match e:
 			case MethodInvocationExpression(Target: target):
-				return typeSystem().GetOptionalEntity(target) is RuntimeServices_GetEnumerable
+				return target.Entity is RuntimeServices_GetEnumerable
 			otherwise:
 				return false
 				

@@ -10,7 +10,7 @@
 	<property name="asm.all.jar" value="/Users/rodrigob/java/asm-3.2/lib/all/asm-all-3.2.jar" />
 	<property name="build.dir" value="bin" />
 	<property name="dist.dir" value="dist" />
-	<property name="boo.dir" value="../boo/bin" />
+	<property name="boo.dir" value="../boo/build" />
 	
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
 	<include buildfile="nunit.inc" />
@@ -57,6 +57,7 @@
 				<include name="*.boo" />
 			</sources>
 			<references basedir="${build.dir}">
+				<include name="Boo.Lang.Compiler.dll" />
 				<include name="Boo.Lang.Useful.dll" />
 				<include name="Boojay.Compilation.dll" />
 				<include name="IKVM.OpenJDK.Util.dll" />
