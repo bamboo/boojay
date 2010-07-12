@@ -2,3 +2,5 @@ build.properties
 bin
 dist
 *~
+*.pidb
+*.userprefs
