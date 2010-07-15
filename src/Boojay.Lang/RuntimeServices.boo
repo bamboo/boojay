@@ -4,12 +4,15 @@ import java.lang
 
 static class RuntimeServices:
 	
-	def ToBool(o):
+	def ToBool(o) as bool:
 		if o is null:
 			return false
 		boolean = o as Boolean
 		if boolean is not null:
 			return boolean.booleanValue()
+		s = o as string
+		if s is not null:
+			return len(s) != 0
 		return true
 	
 	def UnboxChar(o):

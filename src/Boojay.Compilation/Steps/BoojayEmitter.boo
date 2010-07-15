@@ -529,6 +529,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			case "get_Length":
 				emit node.Target
 				invokeWithName Opcodes.INVOKEVIRTUAL, method, "length"
+			case "IsNullOrEmpty":
+				assert len(node.Arguments) == 1
+				emit node.Arguments[0]
+				ensureBool typeSystem.StringType
 			otherwise:
 				return false
 				
