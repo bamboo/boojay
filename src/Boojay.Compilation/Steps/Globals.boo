@@ -2,7 +2,10 @@ namespace Boojay.Compilation.Steps
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Services
 import Boo.Lang.Compiler.Ast
+
+import Boo.Lang.Environments
 import Boo.Lang.PatternMatching
 
 def resolveRuntimeMethod(methodName as string):
@@ -47,10 +50,10 @@ def typeOf(e as Expression) as IType:
 			return typeSystem().GetExpressionType(e)
 
 def typeSystem():
-	return context().TypeSystemServices
+	return my(TypeSystemServices)
 	
 def nameResolutionService():
-	return context().NameResolutionService
+	return my(NameResolutionService)
 	
 def context():
 	return CompilerContext.Current
