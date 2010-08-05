@@ -25,12 +25,6 @@ class JavaReflectionTypeSystemProvider(ReflectionTypeSystemProvider):
 		return mapping
 
 class JavaTypeSystem(TypeSystemServices):
-	
-	def constructor():
-		self(CompilerContext())
-	
-	def constructor(context as CompilerContext):
-		super(context)
 		
 	override ExceptionType:
 		get: return Map(java.lang.Exception)

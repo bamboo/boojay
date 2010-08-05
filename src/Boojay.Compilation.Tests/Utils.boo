@@ -73,11 +73,10 @@ def booCompile(unit as CompileUnit, *refs as (ICompileUnit)):
 	assert 0 == len(result.Errors), result.Errors.ToString(true) + unit.ToCodeString()
 
 def newBooCompiler():
-	compiler = BooCompiler(CompilerParameters(true))
-	compiler.Parameters.OutputType = CompilerOutputType.Auto
-	compiler.Parameters.Pipeline = Boo.Lang.Compiler.Pipelines.CompileToMemory()
-
-	return compiler
+	return BooCompiler(
+		CompilerParameters(true,
+			OutputType: CompilerOutputType.Auto,
+			Pipeline: Boo.Lang.Compiler.Pipelines.CompileToMemory()))
 
 def runTestWithJar(test as Module, jar as Module):
 	generatedJar = generateTempJarWith(jar)

@@ -10,7 +10,6 @@ Patches a boo pipeline to make it work like a boojay one.
 	pipeline.Insert(0, InitializeEntityNameMatcher())
 	pipeline.InsertAfter(NormalizeTypeAndMemberDefinitions, NormalizeLiterals())
 	pipeline.Replace(IntroduceGlobalNamespaces, IntroduceBoojayNamespaces())
-	pipeline.Replace(InitializeTypeSystemServices, InitializeJavaTypeSystem())
 	pipeline.InsertBefore(NormalizeIterationStatements, NormalizeIterations())
 
 class BoojayCompilation(Boo.Lang.Compiler.Pipelines.Compile):
