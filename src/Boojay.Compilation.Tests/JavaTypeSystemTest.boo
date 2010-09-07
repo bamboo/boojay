@@ -3,6 +3,7 @@ namespace Boojay.Compilation.Tests
 import NUnit.Framework
 import Boo.Lang.Environments
 import Boo.Lang.Compiler.TypeSystem
+import System.Linq.Enumerable
 
 [TestFixture]
 class JavaTypeSystemTest(TestWithCompilerContext):
@@ -19,8 +20,8 @@ class JavaTypeSystemTest(TestWithCompilerContext):
 		WithCompilerContext:
 			
 			typeSystem = my(TypeSystemServices)
-			members = typeSystem.Map(Bean).GetMembers()
-			System.Array.Sort(members, { l as IEntity, r as IEntity | l.Name.CompareTo(r.Name) })
+			members = typeSystem.Map(Bean).GetMembers().ToArray()
+			System.Array.Sort(members, { l, r | l.Name.CompareTo(r.Name) })
 			
 			Assert.AreEqual("constructor, getName, name, setName", join(member.Name for member in members, ", "))
 		
