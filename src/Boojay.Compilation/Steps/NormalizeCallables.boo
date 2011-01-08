@@ -1,7 +1,7 @@
 namespace Boojay.Compilation.Steps
 
 import Boo.Lang.Compiler.Ast
-import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Internal
 import Boo.Lang.Compiler.Steps
 
 class NormalizeCallables(AbstractTransformerCompilerStep):
