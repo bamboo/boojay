@@ -49,7 +49,6 @@ def configureParams(cmdLine as CommandLine, params as CompilerParameters):
 
 	params.OutputAssembly = getOutputDirectory(cmdLine)
 	if cmdLine.DebugCompiler:
-		params.EnableTraceSwitch()
 		params.TraceLevel = System.Diagnostics.TraceLevel.Verbose
 		Trace.Listeners.Add(TextWriterTraceListener(System.Console.Error))
 
