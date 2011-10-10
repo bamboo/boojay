@@ -13,7 +13,7 @@
 	<property name="boo.dir" value="../boo/build" />
 	
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
-	<include buildfile="nunit.inc" />
+	<include buildfile="${boo.dir}/../tests/nunit.inc" />
 	
 	<target name="all" depends="test">
 	</target>
