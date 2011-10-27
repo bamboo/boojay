@@ -103,7 +103,7 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 			compileUnit = _subject.ForJar(_jar)
 			foo = ResolveType(compileUnit, "Foo")
 			
-			ctors = List[of IConstructor](foo.GetConstructors())
+			ctors = Boo.Lang.List[of IConstructor](foo.GetConstructors())
 			Assert.AreEqual(1, len(ctors))
 			ctor = ctors[0]
 			Assert.AreEqual(0, len(ctor.GetParameters()))
