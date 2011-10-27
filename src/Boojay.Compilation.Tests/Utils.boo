@@ -64,9 +64,6 @@ def generateTempJarWith(code as Module):
 	generateJar(jar, "${type.FullName.Replace('.', '/')}.class" for type in code.Members)
 	return jar
 
-def booCompile(unit as CompileUnit):
-	booCompile(unit, List[of ICompileUnit]())
-
 def booCompile(unit as CompileUnit, *refs as (ICompileUnit)):
 	compiler = newBooCompiler()
 	result = compiler.Run(unit)
