@@ -41,14 +41,10 @@ static class RuntimeServices:
 		raise IllegalArgumentException("source")
 		
 	def enumerableForIntArray(a as (int)):
-		for i in a:
-			yield i
+		for i in a: yield i
 			
 	def enumerableForString(s as string):
-		i = 0
-		while i < len(s):
-			yield s[i]
-			++i
+		for i in range(len(s)): yield s[i] 
 			
 	def enumerableForIterable(iterable as Iterable):
 		iterator = iterable.iterator()
