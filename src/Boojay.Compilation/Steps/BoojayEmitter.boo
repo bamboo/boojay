@@ -821,19 +821,20 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			emit node.Right
 			
 	def emitAssignment(lvalue as Expression, emitRValue as callable()):
-		
 		match lvalue:
 			case memberRef = MemberReferenceExpression():
 				match bindingFor(memberRef):
-                    case field = IField(IsStatic: false):
-                    	emit memberRef.Target
-                    	emitRValue()
-                    	PUTFIELD field
-                    case p = IProperty(IsStatic: false):
-                    	emit memberRef.Target
-                    	emitRValue()
-                    	emitInvokeMethodInstructionFor p.GetSetMethod()
-                    	
+					case field = IField(IsStatic: false):
+						emit memberRef.Target
+						emitRValue()
+						PUTFIELD field
+					case field = IField(IsStatic: true):
+						emitRValue()
+						PUTSTATIC field
+					case p = IProperty(IsStatic: false):
+						emit memberRef.Target
+						emitRValue()
+						emitInvokeMethodInstructionFor p.GetSetMethod()
 			case reference = ReferenceExpression():
 				emitRValue()
 				match bindingFor(reference):
@@ -1137,6 +1138,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def GETSTATIC(field as IField):
 		emitLoadStaticField(field.DeclaringType, field.Name, field.Type)
+		
+	def PUTSTATIC(field as IField):
+		emitField Opcodes.PUTSTATIC, field
 		
 	def GETFIELD(field as IField):
 		emitField Opcodes.GETFIELD, field
