@@ -242,16 +242,8 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	}
 	
 	override def OnMethod(node as Method):
-		
-		if isBlockedMethod(node):
-			return
-		
 		emitMethod methodName(node.Name), node
-		
-	def isBlockedMethod(node as Method):
-		m = bindingFor(node) as IMethod
-		return node.Name == "get_Current" and hasReturnValue(m) and not isJavaLangObject(m.ReturnType)
-		
+	
 	def methodName(name as string):
 		return _methodMappings[name] or name
 		
@@ -831,8 +823,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 					case field = IField(IsStatic: true):
 						emitRValue()
 						PUTSTATIC field
-					case p = IProperty(IsStatic: false):
-						emit memberRef.Target
+					case p = IProperty():
+						unless p.IsStatic:
+							emit memberRef.Target
 						emitRValue()
 						emitInvokeMethodInstructionFor p.GetSetMethod()
 			case reference = ReferenceExpression():

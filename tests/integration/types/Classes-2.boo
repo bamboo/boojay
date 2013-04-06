@@ -1,4 +1,3 @@
-// ignore WIP
 """
 true
 false
@@ -13,14 +12,14 @@ interface IEnvironment:
 class DummyEnv(IEnvironment):
 	pass
 	
-class Environments:
+static class Environments:
 	
-	static _environment as IEnvironment
+	_environment as IEnvironment
 	
-	static Current:
+	Current:
 		get: return _environment
 	
-	static def With(environment as IEnvironment, code as Code):
+	def With(environment as IEnvironment, code as Code):
 		previous = _environment
 		_environment = environment
 		

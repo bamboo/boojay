@@ -222,6 +222,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/properties/BeanProperties.boo")
 		
 	
+	[Test] def StaticProperties():
+		runTestCase("tests/integration/properties/StaticProperties.boo")
+		
+	
 	[Test] def ForItemInArray():
 		runTestCase("tests/integration/statements/ForItemInArray.boo")
 		
@@ -285,7 +289,7 @@ partial class IntegrationTest:
 	[Test] def Classes_1():
 		runTestCase("tests/integration/types/Classes-1.boo")
 		
-	[Ignore("WIP")]
+	
 	[Test] def Classes_2():
 		runTestCase("tests/integration/types/Classes-2.boo")
 		
