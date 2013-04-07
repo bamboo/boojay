@@ -230,7 +230,8 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		field.visitEnd() 
 		
 	override def OnConstructor(node as Constructor):
-		emitMethod "<init>", node
+		ctorName = ("<clinit>" if node.IsStatic else "<init>")
+		emitMethod ctorName, node
 		
 	_methodMappings = {
 		".ctor": "<init>",

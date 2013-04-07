@@ -326,6 +326,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/types/Overrides-1.boo")
 		
 	
+	[Test] def StaticConstructor():
+		runTestCase("tests/integration/types/StaticConstructor.boo")
+		
+	
 	[Test] def StaticFields():
 		runTestCase("tests/integration/types/StaticFields.boo")
 		
