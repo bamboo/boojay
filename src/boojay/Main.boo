@@ -53,11 +53,11 @@ def configureParams(cmdLine as CommandLine, params as CompilerParameters):
 		if cmdLine.Verbose: print fname
 		params.Input.Add(FileInput(fname))
 	
-	for reference in dotNetReferences(cmdLine.References): 
+	for reference in dotNetReferences(cmdLine.References):
 		params.References.Add(loadAssembly(reference))
-	for classpath in retrieveJars(cmdLine.Classpaths): 
+	for classpath in retrieveJars(cmdLine.Classpaths):
 		params.References.Add(loadJar(classpath))
-	for classpath in jarReferences(cmdLine.References): 
+	for classpath in jarReferences(cmdLine.References):
 		params.References.Add(loadJar(classpath))
 
 	params.OutputAssembly = getOutputDirectory(cmdLine)

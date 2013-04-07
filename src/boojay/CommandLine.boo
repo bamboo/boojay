@@ -50,7 +50,7 @@ class CommandLine(AbstractCommandLine):
 	public Verbose = false
 	
 	[Option("Prints additional compiler internal messages to stdout.", LongForm: "debug-compiler")]
-	public DebugCompiler = false 
+	public DebugCompiler = false
 
 	[Option("References the specified {assembly}", ShortForm: 'r', LongForm: "reference", MaxOccurs: int.MaxValue)]
 	def AddReference(reference as string):
