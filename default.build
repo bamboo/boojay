@@ -113,7 +113,9 @@
 			</references>
 		</booc>
 		
-		<exec program="${build.dir}/boojay.exe" workingdir="${build.dir}" useruntimeengine="true">
+		<exec program="${build.dir}/boojay.exe"
+			workingdir="${build.dir}"
+			useruntimeengine="true">
 			<arg value="-srcdir:${path::get-full-path('src/Boojay.Lang')}" />
 			<arg value="-out:${path::get-full-path(build.dir)}" />
 			<arg value="-verbose" />

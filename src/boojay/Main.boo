@@ -12,6 +12,19 @@ import Boojay.Compilation.TypeSystem from Boojay.Compilation
 import java.io
 import java.util.zip
 
+def Main(argv as (string)):
+	print "boojay .0a"
+
+	cmdLine = parseCommandLine(argv)
+	if cmdLine is null: return -1
+
+	compiler = newBoojayCompiler(selectPipeline(cmdLine))
+	configureParams(cmdLine, compiler.Parameters)
+	result = compiler.Run()
+	showErrorsWarnings(cmdLine, result)
+	outputJarFile(cmdLine, compiler.Parameters.OutputAssembly, result)
+	return len(result.Errors)
+
 def loadAssembly(name as string):
 	if SysIO.File.Exists(name):
 		return Assembly.LoadFrom(name)
@@ -112,15 +125,4 @@ def RemoveStart(value as string, start as string):
 	return value unless value.StartsWith(start)
 	return value[start.Length:]
 
-print "boojay .0a"
 
-cmdLine = parseCommandLine(argv)
-if cmdLine is null: return
-
-compiler = newBoojayCompiler(selectPipeline(cmdLine))
-configureParams(cmdLine, compiler.Parameters)
-
-result = compiler.Run()
-
-showErrorsWarnings(cmdLine, result)
-outputJarFile(cmdLine, compiler.Parameters.OutputAssembly, result)
