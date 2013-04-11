@@ -1,4 +1,3 @@
-#About
 
 [Boo](http://boo.codehaus.org/) for the JVM.
 
