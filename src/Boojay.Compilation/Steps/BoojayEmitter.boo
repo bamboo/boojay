@@ -360,8 +360,12 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	def index(node as Local, index as int):
 		node["index"] = index
 		
-	def index(bindingFor as InternalLocal) as int:
-		return bindingFor.Local["index"]
+	def index(binding) as int:
+		match binding:
+			case InternalLocal(Local: local):
+				return local["index"]
+			case InternalParameter(Index: parameterIndex):
+				return parameterIndex
 		
 	override def EnterExpressionStatement(node as ExpressionStatement):
 		emitDebuggingInfoFor node

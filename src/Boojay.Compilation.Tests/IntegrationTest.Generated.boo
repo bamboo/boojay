@@ -118,6 +118,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/expressions/And-3.boo")
 		
 	
+	[Test] def AssignmentToParameter():
+		runTestCase("tests/integration/expressions/AssignmentToParameter.boo")
+		
+	
 	[Test] def Cast_1():
 		runTestCase("tests/integration/expressions/Cast-1.boo")
 		
