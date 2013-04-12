@@ -12,12 +12,12 @@ def head(block as callable()):
 	tag "head", block
 	
 def title(text):
-	print "<title>${text}</title>"
+	print "<title>$text</title>"
 
 def tag(tagName, block as callable()):
-	print "<${tagName}>"
+	print "<$tagName>"
 	block()
-	print "</${tagName}>"
+	print "</$tagName>"
 	
 html:
 	head:
