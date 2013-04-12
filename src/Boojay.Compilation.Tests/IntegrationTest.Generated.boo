@@ -162,6 +162,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/expressions/TryCast-1.boo")
 		
 	
+	[Test] def Xor():
+		runTestCase("tests/integration/expressions/Xor.boo")
+		
+	
 	[Test] def GeneratorAsArgumentToMethod():
 		runTestCase("tests/integration/generators/GeneratorAsArgumentToMethod.boo")
 		

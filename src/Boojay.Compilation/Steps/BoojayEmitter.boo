@@ -681,6 +681,8 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				emitDivision node
 			case BinaryOperatorType.Modulus:
 				emitModulus node
+			case BinaryOperatorType.ExclusiveOr:
+				emitXor node
 				
 			case BinaryOperatorType.TypeTest:
 				emitTypeTest node
@@ -788,6 +790,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def emitModulus(node as BinaryExpression):
 		emitArithmeticExpression node, Opcodes.IREM
+		
+	def emitXor(node as BinaryExpression):
+		emitArithmeticExpression node, Opcodes.IXOR
 		
 	def emitArithmeticExpression(node as BinaryExpression, opcode as int):
 		emit node.Left
