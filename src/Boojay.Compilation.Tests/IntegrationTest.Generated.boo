@@ -130,6 +130,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/expressions/Isa-1.boo")
 		
 	
+	[Test] def LessThanOrEqual():
+		runTestCase("tests/integration/expressions/LessThanOrEqual.boo")
+		
+	
 	[Test] def MultiAssignment():
 		runTestCase("tests/integration/expressions/MultiAssignment.boo")
 		

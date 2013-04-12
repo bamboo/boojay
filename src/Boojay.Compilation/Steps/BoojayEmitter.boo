@@ -666,13 +666,11 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		match node.Operator:
 			case BinaryOperatorType.Or:
 				emitOr node
-			
 			case BinaryOperatorType.And:
 				emitAnd node
 				
 			case BinaryOperatorType.Assign:
 				emitAssignment node
-				
 			case BinaryOperatorType.Subtraction:
 				emitSubtraction node
 			case BinaryOperatorType.Addition:
@@ -696,15 +694,15 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				emitReferenceEquality node
 			case BinaryOperatorType.ReferenceInequality:
 				emitReferenceInequality node
-			
-			case BinaryOperatorType.GreaterThanOrEqual:
-				emitComparison node, Opcodes.IF_ICMPLT
-				
-			case BinaryOperatorType.LessThan:
-				emitComparison node, Opcodes.IF_ICMPGE
 				
 			case BinaryOperatorType.GreaterThan:
 				emitComparison node, Opcodes.IF_ICMPLE
+			case BinaryOperatorType.GreaterThanOrEqual:
+				emitComparison node, Opcodes.IF_ICMPLT
+			case BinaryOperatorType.LessThan:
+				emitComparison node, Opcodes.IF_ICMPGE
+			case BinaryOperatorType.LessThanOrEqual:
+				emitComparison node, Opcodes.IF_ICMPGT
 				
 	def emitComparison(node as BinaryExpression, branchIfFalseOpcode as int):
 		L1 = Label()
