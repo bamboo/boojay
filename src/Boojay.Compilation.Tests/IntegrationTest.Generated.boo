@@ -242,6 +242,14 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/properties/StaticProperties.boo")
 		
 	
+	[Test] def BreakIfOutOfWhile():
+		runTestCase("tests/integration/statements/BreakIfOutOfWhile.boo")
+		
+	
+	[Test] def ContinueIfWhile():
+		runTestCase("tests/integration/statements/ContinueIfWhile.boo")
+		
+	
 	[Test] def ForItemInArray():
 		runTestCase("tests/integration/statements/ForItemInArray.boo")
 		

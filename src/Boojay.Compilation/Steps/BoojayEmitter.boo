@@ -209,18 +209,46 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		emit node.Members
 	
 	override def OnWhileStatement(node as WhileStatement):
-		
 		emitDebuggingInfoFor node
-		
 		testLabel = Label()
 		bodyLabel = Label()
+		breakLabel = Label()
 		GOTO testLabel
 		mark bodyLabel
+		enterLoop breakLabel, testLabel
 		emit node.Block
+		leaveLoop
 		mark testLabel
-		
 		emitDebuggingInfoFor node.Condition
 		emitBranchTrue node.Condition, bodyLabel
+		mark breakLabel
+		
+	override def OnBreakStatement(node as BreakStatement):
+		GOTO currentBreakLabel()
+		
+	override def OnContinueStatement(node as ContinueStatement):
+		GOTO currentContinueLabel()
+		
+	def currentBreakLabel():
+		return currentLoopLabels().Break
+		
+	def currentContinueLabel():
+		return currentLoopLabels().Continue
+		
+	def currentLoopLabels():
+		return _loopStack[-1]
+			
+	def enterLoop(breakLabel as Label, continueLabel as Label):
+		_loopStack.Push(LoopLabels(Break: breakLabel, Continue: continueLabel))
+		
+	def leaveLoop():
+		_loopStack.Pop()
+		
+	_loopStack = List of LoopLabels()
+	
+	struct LoopLabels:
+		Break as Label
+		Continue as Label
 		
 	override def OnField(node as Field):
 		field = _classVisitor.visitField(
