@@ -306,6 +306,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/types/Classes-2.boo")
 		
 	
+	[Test] def ConstructorDelegation():
+		runTestCase("tests/integration/types/ConstructorDelegation.boo")
+		
+	
 	[Test] def Constructors_1():
 		runTestCase("tests/integration/types/Constructors-1.boo")
 		

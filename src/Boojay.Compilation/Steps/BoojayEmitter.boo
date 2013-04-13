@@ -429,7 +429,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				
 	def emitConstructorInvocation(ctor as IConstructor, node as MethodInvocationExpression):
 		match node.Target:
-			case SuperLiteralExpression():
+			case SuperLiteralExpression() | SelfLiteralExpression():
 				ALOAD 0
 				emit node.Arguments
 				INVOKESPECIAL ctor
