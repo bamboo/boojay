@@ -218,6 +218,8 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		mark bodyLabel
 		emit node.Block
 		mark testLabel
+		
+		emitDebuggingInfoFor node.Condition
 		emitBranchTrue node.Condition, bodyLabel
 		
 	override def OnField(node as Field):
