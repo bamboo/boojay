@@ -377,12 +377,13 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		discardValueOnStack node.Expression
 		
 	def emitDebuggingInfoFor(node as Node):
-		if not node.LexicalInfo.IsValid:
+		location = AstUtil.SafeLexicalInfo(node)
+		if not location.IsValid:
 			return
 			
 		label = Label()
 		mark label
-		_code.visitLineNumber(node.LexicalInfo.Line, label)
+		_code.visitLineNumber(location.Line, label)
 		
 	def discardValueOnStack(node as Expression):
 		mie = node as MethodInvocationExpression
