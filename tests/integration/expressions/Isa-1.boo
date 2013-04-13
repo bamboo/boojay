@@ -5,6 +5,10 @@ false
 """
 import java.lang
 
-print "foo" isa string
+s = "foo"
+if s isa string:
+	print "true"
+else:
+	print "false"
 print "foo" isa object
 print "foo" isa Integer

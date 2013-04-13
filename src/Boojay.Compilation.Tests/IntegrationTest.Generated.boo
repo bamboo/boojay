@@ -74,6 +74,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/autocasting/AutomaticDowncastingOnInvocation.boo")
 		
 	
+	[Test] def CharacterAutoBoxing():
+		runTestCase("tests/integration/autocasting/CharacterAutoBoxing.boo")
+		
+	
 	[Test] def Join_1():
 		runTestCase("tests/integration/builtins/Join-1.boo")
 		

@@ -1,5 +1,5 @@
 """
-FOO
+foo
 foo
 null
 """
@@ -11,6 +11,8 @@ def sysout(o):
 
 o as object = "foo"
 s as string = o
-sysout s.toUpperCase()
+sysout s
 sysout o as string
-sysout o as java.lang.Integer
+
+i = o as java.lang.Integer
+sysout i
