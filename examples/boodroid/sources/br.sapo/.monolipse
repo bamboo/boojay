@@ -1,7 +1,0 @@
-<settings>
-  <language>boojay</language>
-  <outputType>exe</outputType>
-  <references/>
-  <outputFolder>/boodroid/bin</outputFolder>
-  <additionalOptions></additionalOptions>
-</settings>
