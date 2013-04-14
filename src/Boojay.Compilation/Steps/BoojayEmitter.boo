@@ -592,6 +592,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			and method.Name in ("get_out", "get_in", "get_err"))
 			
 	override def OnRaiseStatement(node as RaiseStatement):
+		emitDebuggingInfoFor node
 		if node.Exception is not null:
 			emit node.Exception
 			ATHROW
