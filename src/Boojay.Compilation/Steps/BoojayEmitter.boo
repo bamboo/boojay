@@ -1,5 +1,6 @@
 namespace Boojay.Compilation.Steps
 
+import System(Action)
 import System.IO
 
 import Boo.Lang.Compiler
@@ -526,6 +527,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			emit node.Target
 			ARRAYLENGTH
 			return
+		
+		if isArrayCreation(method):
+			emitArrayCreation method, node
+			return
 			
 		if handleSpecialStringMethod(method, node):
 			return
@@ -568,6 +573,13 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 			
 	def isArrayLength(method as IMethod):
 		return method.FullName == "System.Array.get_Length"
+		
+	def isArrayCreation(method as IMethod):
+		match method.ConstructedInfo:
+			case IConstructedMethodInfo(GenericDefinition: definition):
+				return definition.FullName == "Boojay.Macros.ArrayPrimitivesModule.array"
+			otherwise:
+				return false 
 		
 	def emitObjectCreation(ctor as IConstructor, node as MethodInvocationExpression):
 		NEW ctor.DeclaringType
@@ -852,7 +864,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		emitAssignment node.Left:
 			emit node.Right
 			
-	def emitAssignment(lvalue as Expression, emitRValue as callable()):
+	def emitAssignment(lvalue as Expression, emitRValue as Action):
 		match lvalue:
 			case memberRef = MemberReferenceExpression():
 				match bindingFor(memberRef):
@@ -873,7 +885,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				match bindingFor(reference):
 					case local = ILocalEntity():
 						emitStore local
-			
+			case slicing = SlicingExpression():
+				emitArrayElementAssignment slicing, emitRValue
+				
 	def shouldLeaveValueOnStack(node as BinaryExpression):
 		return node.ParentNode.NodeType != NodeType.ExpressionStatement
 	
@@ -985,6 +999,15 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		return Opcodes.AALOAD
 			
 	override def OnSlicingExpression(node as SlicingExpression):
+		emitArraySlicing node
+		emitArrayLoadOpcodeFor node
+				
+	def emitArrayElementAssignment(node as SlicingExpression, emitRValue as Action):
+		emitArraySlicing node
+		emitRValue()
+		emitArrayStoreOpcodeFor node
+		
+	def emitArraySlicing(node as SlicingExpression):
 		assert 1 == len(node.Indices)
 		match node.Indices[0].Begin:
 			case IntegerLiteralExpression(Value: value):
@@ -998,13 +1021,19 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	def emitRawArraySlicing(node as SlicingExpression):
 		emit node.Target
 		emit node.Indices[0].Begin
-		emitArrayLoadOpcodeFor node
+		
+	def emitArrayStoreOpcodeFor(node as SlicingExpression):
+		emitArrayStoreOpcodeFor typeOf(node.Target).ElementType
 		
 	def emitArrayLoadOpcodeFor(node as SlicingExpression):
 		emitArrayLoadOpcodeFor typeOf(node.Target).ElementType
 		
 	def emitArrayLoadOpcodeFor(elementType as IType):
 		emitInstruction arrayLoadOpcodeFor(elementType)
+		
+	def emitArrayCreation(method as IMethod, creation as MethodInvocationExpression):
+		emit creation.Arguments[0]
+		emitNewArrayOpcodeFor method.ConstructedInfo.GenericArguments[0]
 				
 	def emitNormalizedArraySlicing(node as SlicingExpression):
 		L1 = Label()
@@ -1018,12 +1047,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		ARRAYLENGTH
 		IADD
 		mark L1
-		emitArrayLoadOpcodeFor node
 		
 	def ensureLocal(e as Expression):
 		local = e.Entity as InternalLocal
 		if local is not null: return local
-		
 		local = newTemp(typeOf(e))
 		emit e
 		emitStore local
@@ -1165,6 +1192,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def ARRAYLENGTH():
 		emitInstruction Opcodes.ARRAYLENGTH
+		
+	def AASTORE():
+		emitInstruction Opcodes.AASTORE
 		
 	def ASTORE(index as int):
 		emitVarInsn(Opcodes.ASTORE, index)

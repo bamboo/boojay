@@ -14,8 +14,20 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/arrays/CharArray.boo")
 		
 	
+	[Test] def ClassArrayCreationAndAssignment():
+		runTestCase("tests/integration/arrays/ClassArrayCreationAndAssignment.boo")
+		
+	
+	[Test] def ClassArrayNegativeIndexing():
+		runTestCase("tests/integration/arrays/ClassArrayNegativeIndexing.boo")
+		
+	
 	[Test] def IntArray():
 		runTestCase("tests/integration/arrays/IntArray.boo")
+		
+	
+	[Test] def IntArrayCreation():
+		runTestCase("tests/integration/arrays/IntArrayCreation.boo")
 		
 	
 	[Test] def SimpleStringArray():
