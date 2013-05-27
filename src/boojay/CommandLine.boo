@@ -49,9 +49,6 @@ class CommandLine(AbstractCommandLine):
 	[Option("Enables verbose mode.", LongForm: "verbose")]
 	public Verbose = false
 	
-	[Option("Prints additional compiler internal messages to stdout.", LongForm: "debug-compiler")]
-	public DebugCompiler = false
-
 	[Option("References the specified {assembly}", ShortForm: 'r', LongForm: "reference", MaxOccurs: int.MaxValue)]
 	def AddReference(reference as string):
 		_references.AddUnique(reference)
