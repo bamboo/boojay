@@ -59,10 +59,9 @@ static class ProjectFolders:
 		return folder
 
 def generateTempJarWith(code as Module):
-	jar = Path.GetTempFileName()
 	boojayCompile(CompileUnit(code))
-	generateJar(jar, "${type.FullName.Replace('.', '/')}.class" for type in code.Members)
-	return jar
+	entries = "${type.FullName.Replace('.', '/')}.class" for type in code.Members
+	return generateTempJar(entries)
 
 def booCompile(unit as CompileUnit, *refs as (ICompileUnit)):
 	compiler = newBooCompiler()

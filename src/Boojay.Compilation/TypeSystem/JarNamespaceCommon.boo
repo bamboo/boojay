@@ -1,6 +1,6 @@
 namespace Boojay.Compilation.TypeSystem
 
-import Boo.Lang.Compiler.TypeSystem
+import Compiler.TypeSystem
 import Boo.Lang.Useful.Attributes
 
 import java.util.jar
@@ -23,6 +23,7 @@ abstract class JarNamespaceCommon(AbstractNamespace):
 		entries = _jar.entries()
 		while entries.hasMoreElements():
 			entry as JarEntry = entries.nextElement()
+			continue unless entry.getName().EndsWith(".class")
 			continue unless ShouldProcess(entry)
 
 			relativeName = GetRelativeEntryName(entry)

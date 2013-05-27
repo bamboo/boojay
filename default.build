@@ -11,6 +11,7 @@
 	<property name="build.dir" value="bin" />
 	<property name="dist.dir" value="dist" />
 	<property name="boo.dir" value="../boo/build" />
+	<property name="boo.extensions.dir" value="../boo-extensions/build" />
 	
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
 	<include buildfile="${boo.dir}/../tests/nunit.inc" />
@@ -63,6 +64,7 @@
 			<references basedir="${build.dir}">
 				<include name="Boo.Lang.Compiler.dll" />
 				<include name="Boo.Lang.Useful.dll" />
+				<include name="Boo.Adt.dll" />
 				<include name="Boojay.Compilation.dll" />
 				<include name="IKVM.OpenJDK.Util.dll" />
 				<include name="IKVM.OpenJDK.Core.dll" />
@@ -94,6 +96,7 @@
 			</sources>
 			<references basedir="${build.dir}">
 				<include name="Boo.Lang.Useful.dll" />
+				<include name="Boo.Adt.dll" />
 				<include name="asm.dll" />
 				<include name="Boojay.Macros.dll" />
 				<include name="Boojay.Lang.dll" />
@@ -118,7 +121,6 @@
 			useruntimeengine="true">
 			<arg value="-srcdir:${path::get-full-path('src/Boojay.Lang')}" />
 			<arg value="-out:${path::get-full-path(build.dir)}" />
-			<arg value="-verbose" />
 		</exec>
 		
 	</target>
@@ -130,6 +132,7 @@
 	
 	<target name="copy-libs" depends="init">
 		<copy todir="${build.dir}" file="lib/asm.dll" />
+		<copy todir="${build.dir}" file="${boo.extensions.dir}/Boo.Adt.dll" />
 		<copy todir="${build.dir}">
 			<fileset basedir="${boo.dir}">
 				<include name="Boo.*.dll" />

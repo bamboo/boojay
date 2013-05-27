@@ -3,12 +3,8 @@ namespace Boojay.Compilation.Tests
 import System
 import NUnit.Framework
 
-import Boo.Lang.Environments
-import Boo.Lang.Compiler
-import Boo.Lang.Compiler.Ast
-import Boo.Lang.Compiler.TypeSystem
-import Boo.Lang.Compiler.TypeSystem.Services
-
+import Environments
+import Compiler.TypeSystem
 import Boojay.Compilation.TypeSystem
 
 [TestFixture]
@@ -122,7 +118,5 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 			Assert.AreEqual(0, getName.GetParameters().Length)	
 		
 	def ResolveType(compileUnit as ICompileUnit, typeName as string) as IType:
-		return ResolveQualifiedName(compileUnit, typeName)
-		
-	def ResolveQualifiedName(compileUnit as ICompileUnit, typeName as string):
-		return my(NameResolutionService).ResolveQualifiedName(compileUnit.RootNamespace, typeName)
+		return compileUnit.ResolveQualifiedName(typeName)
+
