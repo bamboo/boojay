@@ -1,11 +1,13 @@
 namespace Boojay.Compilation.TypeSystem
 
-import Boo.Lang.Environments
+import Environments
 
-import Boo.Lang.Compiler.TypeSystem
+import Compiler.TypeSystem
 import Boo.Lang.Useful.Attributes
+import org.objectweb.asm
 
 class JarMethod(IMethod):
+	
 	_declaringType as IType
 	_name as string
 	_descriptor as string
@@ -30,28 +32,34 @@ class JarMethod(IMethod):
 		get: return _declaringType
 		
 	IsPublic:
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_PUBLIC) != 0
+		get: return (_access & Opcodes.ACC_PUBLIC) != 0
 		
 	IsProtected:
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_PROTECTED) != 0
+		get: return (_access & Opcodes.ACC_PROTECTED) != 0
 
 	IsPrivate:
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_PRIVATE) != 0
+		get: return (_access & Opcodes.ACC_PRIVATE) != 0
 
 	IsInternal:
 		get: return false
 		
+	IsPInvoke:
+		get: return false
+		
 	IsFinal:
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_FINAL) != 0
+		get: return (_access & Opcodes.ACC_FINAL) != 0
 
 	IsStatic:
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_STATIC) != 0
+		get: return (_access & Opcodes.ACC_STATIC) != 0
 		
 	AcceptVarArgs: 
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_VARARGS) != 0
+		get: return (_access & Opcodes.ACC_VARARGS) != 0
 		
 	IsVirtual:
-		get: return (_access & org.objectweb.asm.Opcodes.ACC_FINAL) == 0
+		get: return (_access & Opcodes.ACC_FINAL) == 0
+		
+	IsAbstract:
+		get: return (_access & Opcodes.ACC_ABSTRACT) != 0
 
 	IsExtension:
 		get: return false // FIXME
@@ -77,26 +85,28 @@ class JarMethod(IMethod):
 	ReturnType as IType:
 		[once] get:
 			asmType = org.objectweb.asm.Type.getReturnType(_descriptor)
-			return AsmTypeResolver.ResolveTypeName(asmType)
+			return AsmTypeResolver.ResolveType(asmType)
 	
 	[once]
 	def GetParameters():
 		asmParamTypes = org.objectweb.asm.Type.getArgumentTypes(_descriptor)
-		result = (Parameter(self, "arg${i}", param) for i, param in enumerate(asmParamTypes))
-		return array(IParameter, result)
+		return array(Parameter(self, "arg${i}", param) for i, param in enumerate(asmParamTypes))
+		
+	def IsDefined(annotationType as IType):
+		return false
 
 class Parameter(IParameter):
-	_declaringType as IMethod
+	_declaringMethod as IMethod
 	_name as string
-	_type as org.objectweb.asm.Type
+	__type as org.objectweb.asm.Type
 		
-	def constructor(declaringType as IMethod, name as string, type as org.objectweb.asm.Type):
-		_declaringType = declaringType
+	def constructor(declaringMethod as IMethod, name as string, type as org.objectweb.asm.Type):
+		_declaringMethod = declaringMethod
 		_name = name
-		_type = type
+		__type = type
 		
-	Type as IType:
-		[once] get: return AsmTypeResolver.ResolveTypeName(_type)
+	Type:
+		[once] get: return AsmTypeResolver.ResolveType(__type)
 		
 	EntityType:
 		get: return EntityType.Parameter
@@ -105,7 +115,7 @@ class Parameter(IParameter):
 		get: return _name
 		
 	FullName:
-		get: return "${_declaringType.FullName}.${_name}"
+		get: return "${_declaringMethod.FullName}.${_name}"
 		
 	IsByRef:
 		get: return false

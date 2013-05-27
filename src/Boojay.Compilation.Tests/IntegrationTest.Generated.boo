@@ -350,6 +350,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/types/Interfaces-1.boo")
 		
 	
+	[Test] def JavaInterface():
+		runTestCase("tests/integration/types/JavaInterface.boo")
+		
+	
 	[Test] def NotImplemented_1():
 		runTestCase("tests/integration/types/NotImplemented-1.boo")
 		

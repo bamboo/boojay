@@ -11,8 +11,6 @@ import Boo.Lang.Compiler.TypeSystem.Services
 import Boo.Lang.Environments
 import Boo.Lang.Useful.Attributes
 
-import org.objectweb.asm
-
 import java.util.jar
 
 class JarClass(AbstractType):
@@ -34,26 +32,29 @@ class JarClass(AbstractType):
 		get: return EntityType.Type
 		
 	override IsClass:
-		get: return true
+		get: return not Descriptor.IsInterface
+		
+	override IsInterface:
+		get: return Descriptor.IsInterface
 
 	override IsFinal:
-		get: return ClassFile().IsFinal
+		get: return Descriptor.IsFinal
 		
 	override def IsAssignableFrom(other as IType):
 		return other is self
 		
-	[once]
 	override def GetMembers():
-		return array(ClassFile().Members)
+		return Descriptor.members
 		
 	def Resolve(result as ICollection[of IEntity], name as string, typesToConsider as EntityType):
 		return my(NameResolutionService).Resolve(name, GetMembers(), typesToConsider, result)
 		
-	[once]
-	private def ClassFile():
-		reader = ClassReader(_jar.getInputStream(_entry))
-		parser = ClassFileParser(self)
-		flags = ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES
-		reader.accept(parser, flags)
-		return parser
+	Descriptor:
+		[once] get:
+			classFile = _jar.getInputStream(_entry)
+			try:
+				return ClassDescriptor.FromFile(classFile, self)
+			ensure:
+				classFile.close()
+		
 

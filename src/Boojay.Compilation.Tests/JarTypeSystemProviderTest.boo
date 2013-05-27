@@ -116,7 +116,39 @@ class JarTypeSystemProviderTest(TestWithCompilerContext):
 			Assert.AreEqual("Foo.getName", getName.FullName)
 			Assert.AreSame(ResolveType(compileUnit, "Foo"), getName.DeclaringType)
 			Assert.AreEqual(0, getName.GetParameters().Length)	
+			
+	[Test]
+	def JarInterface():
+		code = [|
+			namespace Jar.Interfaces
+			
+			interface IFoo:
+				pass
+		|]
+		jar = generateTempJarWith(code)
+		WithCompilerContext:
+			type = _subject.ForJar(jar).ResolveQualifiedName("Jar.Interfaces.IFoo") as IType
+			assert type is not null
+			assert type.IsInterface
 		
+	[Test]
+	def JarConstructorWithParameters():
+		code = [|
+			namespace Jar.Constructors
+			
+			class Foo:
+				def constructor(s as string):
+					pass
+		|]
+		jar = generateTempJarWith(code)
+		WithCompilerContext:
+			type = _subject.ForJar(jar).ResolveQualifiedName("Jar.Constructors.Foo") as IType
+			ctors = array(type.GetConstructors())
+			Assert.AreEqual(1, len(ctors))
+			parameters = ctors[0].CallableType.GetSignature().Parameters
+			Assert.AreEqual(1, len(parameters))
+			Assert.AreSame(my(TypeSystemServices).StringType, parameters[0].Type)
+	
 	def ResolveType(compileUnit as ICompileUnit, typeName as string) as IType:
 		return compileUnit.ResolveQualifiedName(typeName)
 
