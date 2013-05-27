@@ -1,0 +1,13 @@
+<settings>
+  <language>boo</language>
+  <outputType>library</outputType>
+  <references>
+    <monolipse.core.internal.BooAssemblyReference>
+      <assemblyName>Boo.Lang</assemblyName>
+    </monolipse.core.internal.BooAssemblyReference>
+    <monolipse.core.internal.BooAssemblyReference>
+      <assemblyName>Boo.Lang.PatternMatching</assemblyName>
+    </monolipse.core.internal.BooAssemblyReference>
+  </references>
+  <additionalOptions></additionalOptions>
+</settings>

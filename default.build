@@ -89,7 +89,13 @@
 				<include name="IKVM.OpenJDK.Core.dll" />
 			</references>
 		</booc>
-	
+
+		<booc target="library" output="${build.dir}/Boojay.Compilation.Macros.dll">
+			<sources basedir="src/Boojay.Compilation.Macros">
+				<include name="**/*.boo" />
+			</sources>
+		</booc>
+			
 		<booc target="library" output="${build.dir}/Boojay.Compilation.dll">
 			<sources basedir="src/Boojay.Compilation">
 				<include name="**/*.boo" />
@@ -98,8 +104,9 @@
 				<include name="Boo.Lang.Useful.dll" />
 				<include name="Boo.Adt.dll" />
 				<include name="asm.dll" />
-				<include name="Boojay.Macros.dll" />
 				<include name="Boojay.Lang.dll" />
+				<include name="Boojay.Macros.dll" />
+				<include name="Boojay.Compilation.Macros.dll" />
 				<include name="IKVM.OpenJDK.Core.dll" />
 				<include name="IKVM.OpenJDK.Util.dll" />
 			</references>

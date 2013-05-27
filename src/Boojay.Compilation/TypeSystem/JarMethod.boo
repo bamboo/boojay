@@ -85,7 +85,7 @@ class JarMethod(IMethod):
 	ReturnType as IType:
 		[once] get:
 			asmType = org.objectweb.asm.Type.getReturnType(_descriptor)
-			return AsmTypeResolver.ResolveType(asmType)
+			return my(AsmTypeResolver).ResolveType(asmType)
 	
 	[once]
 	def GetParameters():
@@ -106,7 +106,7 @@ class Parameter(IParameter):
 		__type = type
 		
 	Type:
-		[once] get: return AsmTypeResolver.ResolveType(__type)
+		[once] get: return my(AsmTypeResolver).ResolveType(__type)
 		
 	EntityType:
 		get: return EntityType.Parameter
