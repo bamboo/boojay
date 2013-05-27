@@ -16,8 +16,9 @@ def Main(argv as (string)):
 	print "boojay .0a"
 
 	cmdLine = parseCommandLine(argv)
-	if cmdLine is null: return -1
-
+	if cmdLine is null:
+		return -1
+		
 	compiler = newBoojayCompiler(selectPipeline(cmdLine))
 	configureParams(cmdLine, compiler.Parameters)
 	result = compiler.Run()
@@ -49,6 +50,10 @@ def selectPipeline(cmdLine as CommandLine):
 	return (BoojayPipelines.ProduceBoo() if cmdLine.Boo else BoojayPipelines.ProduceBytecode())
 	
 def configureParams(cmdLine as CommandLine, params as CompilerParameters):
+	
+	if cmdLine.Verbose:
+		params.TraceLevel = System.Diagnostics.TraceLevel.Verbose
+		
 	for fname in cmdLine.SourceFiles():
 		if cmdLine.Verbose: print fname
 		params.Input.Add(FileInput(fname))
@@ -61,9 +66,6 @@ def configureParams(cmdLine as CommandLine, params as CompilerParameters):
 		params.References.Add(loadJar(classpath))
 
 	params.OutputAssembly = getOutputDirectory(cmdLine)
-	if cmdLine.DebugCompiler:
-		params.TraceLevel = System.Diagnostics.TraceLevel.Verbose
-		Trace.Listeners.Add(TextWriterTraceListener(System.Console.Error))
 
 def dotNetReferences(references as List[of string]):
 	return [reference for reference in references if (reference.EndsWith(".exe") or reference.EndsWith(".dll"))]
