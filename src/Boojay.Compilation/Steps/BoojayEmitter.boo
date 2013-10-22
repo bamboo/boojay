@@ -1233,13 +1233,13 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		emitInstruction(Opcodes.ATHROW)
 		
 	def RETURN():
-	   emitInstruction(Opcodes.RETURN)
+		emitInstruction(Opcodes.RETURN)
 		
 	def ARETURN():
-	   emitInstruction(Opcodes.ARETURN)
-	   
+		emitInstruction(Opcodes.ARETURN)
+	
 	def IRETURN():
-	   emitInstruction(Opcodes.IRETURN)
+		emitInstruction(Opcodes.IRETURN)
 		
 	def POP():
 		emitInstruction(Opcodes.POP)
@@ -1282,7 +1282,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def invoke(opcode as int, method as IMethod):
 		invokeWithName opcode, method, methodName(method.Name)
-				
+		
 	def invokeWithName(opcode as int, method as IMethod, methodName as string):
 		_code.visitMethodInsn(
 				opcode,
@@ -1332,5 +1332,3 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def javaType(typeName as string):
 		return typeName.Replace('.', '/')
-		
-		

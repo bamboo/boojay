@@ -25,4 +25,3 @@ while i < 3:
 		break if j > 0
 		++j
 	++i
- 
