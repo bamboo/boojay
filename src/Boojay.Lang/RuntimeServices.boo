@@ -38,10 +38,15 @@ static class RuntimeServices:
 			return enumerableForString(source)
 		if source isa (int):
 			return enumerableForIntArray(source)
+		if source isa (object):
+			return enumerableForObjectArray(source)
 		raise IllegalArgumentException("source")
 		
 	def enumerableForIntArray(a as (int)):
 		for i in a: yield i
+	
+	def enumerableForObjectArray(a as (object)):
+		for o in a: yield o
 			
 	def enumerableForString(s as string):
 		for i in range(len(s)): yield s[i] 

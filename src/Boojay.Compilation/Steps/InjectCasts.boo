@@ -99,7 +99,6 @@ class InjectCasts(AbstractTransformerCompilerStep):
 		if isJavaLangObject(expected):
 			return e
 			
-#		watch e, e.GetType(), expected, actual
 		resultingCast = CastExpression(
 							Type: CodeBuilder.CreateTypeReference(expected),
 							Target: e)
