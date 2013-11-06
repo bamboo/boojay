@@ -184,6 +184,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		match e:
 			case [| not $condition |]:
 				emitBranchTrue condition, label
+			case [| $l and $r |]:
+				emitBranchFalse l, label
+				emitBranchFalse r, label
 			otherwise:
 				emitCondition e
 				IFEQ label
@@ -564,8 +567,23 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 				invokeWithName Opcodes.INVOKEVIRTUAL, method, "length"
 			case "IsNullOrEmpty":
 				assert len(node.Arguments) == 1
-				emit node.Arguments[0]
-				ensureBool typeSystem.StringType
+				L1 = Label()
+				L2 = Label()
+				L3 = Label()
+				local = ensureLocal(node.Arguments[0])
+				emitLoad local
+				IFNONNULL L1
+				GOTO L2
+				mark L1
+				emitLoad local
+				INVOKEVIRTUAL javaType(method.DeclaringType), "length", "()I"
+				IFEQ L2
+				ICONST_0
+				GOTO L3
+				mark L2
+				ICONST_1
+				mark L3
+				
 			otherwise:
 				return false
 				
@@ -709,7 +727,14 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		mark L1
 		CHECKCAST javaType(node.Type)
 		mark L2
-			
+		
+	override def OnUnaryExpression(node as UnaryExpression):
+		match node:
+			case [| not $e |]:
+				emitCondition e
+				ICONST_1
+				IXOR
+	
 	override def OnBinaryExpression(node as BinaryExpression):
 		match node.Operator:
 			case BinaryOperatorType.Or:
@@ -760,6 +785,7 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 		emit node.Left
 		emit node.Right
+		
 		emitJumpInsn branchIfFalseOpcode, L1
 		ICONST_1
 		GOTO L2
@@ -799,7 +825,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def ensureBool(topOfStack as IType):
 		if topOfStack.IsValueType: return
-		INVOKESTATIC resolveRuntimeMethod("ToBool")
+		invokeRuntimeMethod "ToBool"
+		
+	def invokeRuntimeMethod(methodName as string):
+		INVOKESTATIC resolveRuntimeMethod(methodName)
 				
 	def emitReferenceInequality(node as BinaryExpression):
 		emitComparison node, Opcodes.IF_ACMPEQ
@@ -1171,6 +1200,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 	def ICONST_1():
 		emitInstruction Opcodes.ICONST_1
 		
+	def IXOR():
+		emitInstruction Opcodes.IXOR
+		
 	def iconstOpcodeFor(value as int):
 		if value == 0: return Opcodes.ICONST_0
 		if value == 1: return Opcodes.ICONST_1
@@ -1216,6 +1248,9 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		
 	def INVOKEVIRTUAL(method as IMethod):
 		invoke(Opcodes.INVOKEVIRTUAL, method)
+		
+	def INVOKEVIRTUAL(declType as string, methodName as string, sig as string):
+		invoke Opcodes.INVOKEVIRTUAL, declType, methodName, sig
 		
 	def INVOKESPECIAL(method as IMethod):
 		invoke(Opcodes.INVOKESPECIAL, method)
@@ -1284,11 +1319,10 @@ class BoojayEmitter(AbstractVisitorCompilerStep):
 		invokeWithName opcode, method, methodName(method.Name)
 		
 	def invokeWithName(opcode as int, method as IMethod, methodName as string):
-		_code.visitMethodInsn(
-				opcode,
-				javaType(method.DeclaringType),
-				methodName,
-				javaSignature(method))
+		invoke opcode, javaType(method.DeclaringType), methodName, javaSignature(method)
+				
+	def invoke(opcode as int, declType as string, methodName as string, sig as string):
+		_code.visitMethodInsn(opcode, declType, methodName, sig)
 		
 	def emitLoadStaticField(declaringType as IType, fieldName as string, fieldType as IType):
 		emitField Opcodes.GETSTATIC, declaringType, fieldName, fieldType

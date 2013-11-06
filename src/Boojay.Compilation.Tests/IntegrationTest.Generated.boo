@@ -162,6 +162,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/expressions/Isa-1.boo")
 		
 	
+	[Test] def Isa_And_Not():
+		runTestCase("tests/integration/expressions/Isa-And-Not.boo")
+		
+	
 	[Test] def LessThanOrEqual():
 		runTestCase("tests/integration/expressions/LessThanOrEqual.boo")
 		
@@ -288,6 +292,10 @@ partial class IntegrationTest:
 	
 	[Test] def ForItemInString():
 		runTestCase("tests/integration/statements/ForItemInString.boo")
+		
+	
+	[Test] def If_And():
+		runTestCase("tests/integration/statements/If-And.boo")
 		
 	
 	[Test] def If_Bool_1():

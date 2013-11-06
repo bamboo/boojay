@@ -4,6 +4,15 @@ import java.lang
 
 static class RuntimeServices:
 	
+	def Len(o) as int:
+		s = o as string
+		if s is not null:
+			return len(s)
+		c = o as java.util.Collection
+		if c is not null:
+			return c.size()
+		raise IllegalArgumentException("o")
+	
 	def ToBool(o) as bool:
 		if o is null:
 			return false
