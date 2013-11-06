@@ -290,6 +290,10 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/statements/ReturnFromVoid.boo")
 		
 	
+	[Test] def ReturnString():
+		runTestCase("tests/integration/statements/ReturnString.boo")
+		
+	
 	[Test] def Try_1():
 		runTestCase("tests/integration/statements/Try-1.boo")
 		
