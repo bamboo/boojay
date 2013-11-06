@@ -146,6 +146,18 @@ partial class IntegrationTest:
 		runTestCase("tests/integration/expressions/HashLiterals.boo")
 		
 	
+	[Test] def Is_1():
+		runTestCase("tests/integration/expressions/Is-1.boo")
+		
+	
+	[Test] def Is_Not_1():
+		runTestCase("tests/integration/expressions/Is-Not-1.boo")
+		
+	
+	[Test] def Is_Not_Null():
+		runTestCase("tests/integration/expressions/Is-Not-Null.boo")
+		
+	
 	[Test] def Isa_1():
 		runTestCase("tests/integration/expressions/Isa-1.boo")
 		
